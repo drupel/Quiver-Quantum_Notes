@@ -5,6 +5,18 @@
 \title{From Quivers to Quantum Groups}
 \author{Dylan Rupel}
 
+ % Define theorem-like environments
+ \newtheorem{theorem}{Theorem}[section]
+ \newtheorem{lemma}[theorem]{Lemma}
+ \newtheorem{corollary}[theorem]{Corollary}
+ \newtheorem{prop}[theorem]{Proposition}
+ \newtheorem{definition}[theorem]{Definition}
+ \newtheorem{remark}[theorem]{Remark}
+ \newtheorem{example}{Example}[section]
+ \newtheorem {exercise}[theorem] {Exercise}
+ % Define math operators
+ \DeclareMathOperator{\rank}{rank}
+
 \begin{document}
   \maketitle
 
@@ -14,12 +26,38 @@
   These are notes for a graduate course at University of Notre Dame, Spring 2018.
 
   \section{Acknowledgements}
-  Random edits...`
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Quiver Representations}
 
   \section{Motivation: Classification Problems in Linear Algebra}
+  
+  Study configurations of vector spaces and linear maps up to simultaneous base change.
+  
+  	\subsection{Baby Examples}
+  		\begin{enumerate}
+			\item Vector spaces: completely classified by dimension. $V \cong \mathbb{C}^n$ for some $n$.
+			\item A single linear map: $f:U\to V$. There are three invariants: $\dim U, \dim V, \rank f$. Up to base change, $f$ can be represented uniquely in a left-justified reduced row-echelon form.
+			\item Endomorphism: $f:V\to V$. Have to fix $\dim V=n$. How to classify $n\times n$ matrices up to conjugation? Use Jordan Canonical Form: $f$ is completely determined by its eigenvalues and sizes/multiplicities of its Jordan blocks. 
+  		\end{enumerate}
+
+  	\subsection{Subspace Problems}
+		\begin{enumerate}
+			\item One Subspace Problem: How to classify $U \subseteq V$? Fix $\dim U$ and $\dim V$. By changing bases in $V$, a subspace can be moved to any other subspace of the same dimension.
+			\item Two Subspace Problem:  $U_1,U_2 \subseteq V$. Fix $\dim U_i, \dim V,$ and $\dim (U_1\cap U_2)$. This is enough to classify such configurations.
+			\item Three Subspace Problem: $U_1,U_2,U_3 \subseteq V$. How to classify ordered triples of subspaces in a fixed vector space up to simultaneous base change?  Fix $\dim U_i, \dim V, \dim (U_i\cap U_j),$ and $\dim (U_1\cap U_2\cap U_3)$. This alone is not enough.
+				\begin{example}
+					Let $\dim V=3$ and $\dim U_i=1$. Consider \[V=\mathbb{C}^3, U_1 = \mathbb{C} \begin{bmatrix}1\\0\\0\end{bmatrix},U_2 = \mathbb{C} \begin{bmatrix}0\\1\\0\end{bmatrix},U_3 = \mathbb{C} \begin{bmatrix}0\\0\\1\end{bmatrix}\] and  \[V=\mathbb{C}^3, U_1 = \mathbb{C} \begin{bmatrix}1\\0\\0\end{bmatrix},U_2 = \mathbb{C} \begin{bmatrix}0\\1\\0\end{bmatrix},U_3 = \mathbb{C} \begin{bmatrix}1\\1\\0\end{bmatrix}.\] These are not equivalent.
+				\end{example}
+			So we must also fix $\dim ((U_i + U_j)\cap U_k)$. This turns out to be enough.
+      \item Four Subspace Problem: $U_1,U_2,U_3, U_4 \subseteq V$. Fix $\dim U_i, \dim V, \dim (U_i\cap U_j),\dim (U_i\cap U_j\cap U_k), \dim ((U_i + U_j)\cap U_k),\dim (U_1\cap U_2 \cap U_3 \cap U_4),  \dim ((U_i + U_j+U_k)\cap U_l),$ and $ \dim ((U_i+ U_j)\cap (U_k+U_l)).$ This is not enough.
+				\begin{example}
+					Let $\dim V=2$, and consider \[V=\mathbb{C}^2, U_1 = \mathbb{C} \begin{bmatrix}1\\0\end{bmatrix},U_2 = \mathbb{C} \begin{bmatrix}0\\1\end{bmatrix},U_3 = \mathbb{C} \begin{bmatrix}1\\1\end{bmatrix},U_4 = \mathbb{C} \begin{bmatrix}1\\ \lambda\end{bmatrix}\] where $\lambda\neq 0,1$. We need to know this continuous parameter $\lambda$ to distinguish such configurations. 
+				\end{example}
+			More generally: the endomorphism problem embeds into the four subspace problem. For $f:U\to U$, we consider \[V=U\oplus U, \ U_1=U\oplus 0, \ U_2=0\oplus U, \ U_3=\{(x,x):x\in U\},\ U_4=\{(x,f(x)):x\in U\}.\] A base change in $V$ fixing $U_1,U_2,U_3$ amounts to conjugation of $f$. 
+			\item Five Subspace Problem: Hopeless...
+		\end{enumerate}
+		
 
   \section{Basic Definitions}
 
