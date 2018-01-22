@@ -5,7 +5,7 @@
 \title{From Quivers to Quantum Groups}
 \author{Dylan Rupel}
 
- % Define theorem-like environments
+% Define theorem-like environments
  \newtheorem{theorem}{Theorem}[section]
  \newtheorem{lemma}[theorem]{Lemma}
  \newtheorem{corollary}[theorem]{Corollary}
@@ -16,6 +16,11 @@
  \newtheorem {exercise}[theorem] {Exercise}
  % Define math operators
  \DeclareMathOperator{\rank}{rank}
+<<<<<<< HEAD
+ \DeclareMathOperator{\Hom}{Hom}
+ \DeclareMathOperator{\Rep}{Rep}
+ \DeclareMathOperator{\rep}{rep}
+  \DeclareMathOperator{\im}{im}
 
 \begin{document}
   \maketitle
@@ -60,11 +65,81 @@
 		
 
   \section{Basic Definitions}
-  	\begin{definition} A \textbf{quiver} $Q=(Q_0,Q_1,s,t)$ consists of a set $Q_0$ of vertices, a set $Q_1$ of arrows, and maps $s,t:Q_1\to Q_0$. For $\alpha\in Q_1$, we write $\alpha:s(\alpha)\to t(\alpha).$
-  	\end{definition}
+  
+	\begin{definition} A \textbf{quiver} $Q=(Q_0,Q_1,s,t)$ consists of a set $Q_0$ of vertices, a set $Q_1$ of arrows, and maps $s,t:Q_1\to Q_0$. For $\alpha\in Q_1$, we write $\alpha:s(\alpha)\to t(\alpha).$
+ 	 \end{definition}
   
   	\begin{definition} Fix a field $\mathbb{F}$. An \textbf{$\mathbb{F}$-representation} of $Q$ is a set \[V= \left(\{V_i\}_{i\in Q_0},\{V_\alpha\}_{\alpha\in Q_1} \right)\] where $V_i$ is an $\mathbb{F}$-vector space and $V_\alpha : V_{s(\alpha)}\to V_{t(\alpha)}$ is an $\mathbb{F}$-linear map.
+   	 \end{definition}
+    
+  	\begin{example}
+    	Let $Q$ be the quiver $1\rightarrow 3\leftarrow 2$ with $Q_0=\{1,2,3\}$. A representation $V$ can be drawn as $V_1 \xrightarrow{f_1} V_3 \xleftarrow{f_2} V_2$. For $f_i$ injective, this gives an instance of the two subspace problem. Changing bases in $V_1,V_2,V_3$ amounts to conjugating each $f_i$ by automorphisms of the $V_i$, say $g_i:V_i\to V_i$. That is, the configuration $V_1 \xrightarrow{g_3 f_1 g_1^{-1}} V_3 \xleftarrow{g_3 f_2 g_2^{-1}} V_2$ is equivalent to the original. Putting all these together, 
+		\[ \begin{tikzcd}
+		V_1 \arrow{r}{f_1} \arrow{d}{g_1} & V_3 \arrow{d}{g_3}& V_2 \arrow{l}{f_2}\arrow{d}{g_2} \\
+		V_1 \arrow{r}{g_3f_1g_1^{-1}}& V_3 & V_2 \arrow{l}{g_3f_2g_2^{-1}}
+		\end{tikzcd}\]
+	where each square commutes.
+    	\end{example}
+    
+   	 \begin{definition}
+    	A \textbf{morphism} $\theta:V\to W$ between representations $V$ and $W$ of $Q$ consists of $\mathbb{F}$-linear maps $\theta_i:V_i\to W_i$ such that $\theta_{t(\alpha)} \circ V_\alpha = W_\alpha\circ \theta_{s(\alpha)}$ for all $\alpha\in Q_1$. That is,
+	\[ \begin{tikzcd}
+		V_{s(\alpha)} \arrow{r}{V_\alpha} \arrow{d}{\theta_{s(\alpha)}} & V_{t(\alpha)} \arrow{d}{\theta_{t(\alpha)}}\\
+		W_{s(\alpha)} \arrow{r}{W_\alpha}& W_{t(\alpha)}
+		\end{tikzcd}\]
+		commutes for every $\alpha\in Q_1$.
     	\end{definition}
+    
+   	 \begin{definition}
+    	Let $\Rep_\mathbb{F}Q$ be the category of all $\mathbb{F}$-representations of $Q$. (Here, the identity maps of representations have all components the identity maps on the $V_i$.) Write $\rep_\mathbb{F}Q \subseteq \Rep_\mathbb{F}Q$ for the full subcategory consisting of representations with finite dimensional spaces $V_i$.
+    	\end{definition}
+    
+    	\begin{lemma}
+    		An isomorphism in $\Rep_\mathbb{F}Q$ is any map $\theta:V\to W$ with each $\theta_i:V_i\to W_i$ invertible.
+    	\end{lemma}
+    
+    	Thus each classification problem is the study of isomorphism classes in $\Rep_\mathbb{F}Q$ for some quiver $Q$.
+
+	\begin{definition}
+		Given $v\in \rep_\mathbb{F}Q$, write $\underline{\dim} V = (\dim V_i)_{i\in Q_0}\in \mathbb{N}^{Q_0}$ for the \textbf{dimension vector} of $V$.
+	\end{definition}
+	
+	Fix a dimension vector $\underline{d} \in \mathbb{N}^{Q_0}$. Consider the affine space $M_{\underline{d}}(Q)=\bigoplus_{\alpha\in Q_1} \Hom_{\mathbb{F}}\left(\mathbb{F}^{d_{s(\alpha)}},\mathbb{F}^{d_{t(\alpha)}}\right)$. This consists of all representations of $Q$ of a fixed dimension vector. The group $G_{\underline{d}}= \prod_{i\in Q_0} GL_{d_i}(\mathbb{F})$ acts on $M_{\underline{d}}(Q)$ by $g\cdot (f_\alpha)_{\alpha\in Q_1}=\left(g_{t(\alpha)}f_\alpha g_{s(\alpha)}^{-1}\right)_{\alpha\in Q_1}.$
+	
+	\begin{lemma}
+		For any $g\in G_{\underline{d}}$ and $(f_\alpha)_{\alpha\in Q_1}$, the representations corresponding to $(f_\alpha)_{\alpha\in Q_1}$ and  $g\cdot (f_\alpha)_{\alpha\in Q_1}$ are isomorphic.
+	\end{lemma}
+	
+	Thus the classification problem amounts to understanding the $G_{\underline{d}}$-orbit structure of $M_{\underline{d}}(Q)$.
+	
+	\subsection{Properties of $\Rep_\mathbb{F}Q$}
+		$Rep_\mathbb{F}Q$ is an additive category: For $V,W\in \Rep_\mathbb{F}Q$, write $\Hom_Q(V,W)$ for the set of morphisms from $V$ to $W$. For $\theta,\theta' \in \Hom_Q(V,W)$ we have another morphism $\theta+\theta'$ with $(\theta+\theta')_i=\theta_i+\theta'_i$. This gives $\Hom_Q(V,W)$ the structure of an abelian group. 
+		
+		\begin{definition}
+			Given $V,W\in \Rep_\mathbb{F}Q$ define $V\oplus W$ to be the representation with $(V\oplus W)_i=V_i\oplus W_i$ and $(V\oplus W)_\alpha = V_\alpha \oplus W_\alpha$. 
+		\end{definition}
+		
+		\begin{definition}
+			A representation $V \in \Rep_\mathbb{F}Q$ is \textbf{indecomposable} if it can't be written as $U\oplus W$ for any nontrivial representations $U,W$.
+		\end{definition}
+		
+		\begin{example}
+			Let $Q: \ 1\to3\leftarrow 2$. Let $V_1 \xrightarrow{f_1} V_3 \xleftarrow{f_2} V_2$ be a representation of $Q$. Considering $\ker f_1$ and $\ker f_2$, we get a direct sum decomposition where  $$\mathbb{F}^{\dim(\ker f_1)} \rightarrow 0 \leftarrow 0$$ and $$ 0\rightarrow 0 \leftarrow \mathbb{F}^{\dim(\ker f_2)}$$ split off. Thus we can assume $f_1$ and $f_2$ are both injective. Considering $\im f_1\cap \im f_2 \subseteq V_3$, we get a summand of the form \[(\mathbb{F}\rightarrow\mathbb{F}\leftarrow\mathbb{F})^{\dim(\im f_1\cap \im f_2)}.\] Then we can assume $\im f_1\cap \im f_2=0$. Then we get summands of the form 
+			\begin{align*} V_1\rightarrow\im f_1 \leftarrow 0 &\cong (\mathbb{F}\rightarrow\mathbb{F}\leftarrow 0)^{\dim V_1} \\ 0\rightarrow\im f_2 \leftarrow V_2 &\cong (0 \rightarrow\mathbb{F}\leftarrow\mathbb{F})^{\dim V_2} \end{align*}
+			Thus we may assume $V_1$ and $V_2$ are zero and we get a summand \[(0 \rightarrow\mathbb{F}\leftarrow0)^{\dim V_3}. \]
+		\end{example}
+		
+		\begin{definition}
+			Given $\theta:V\to W$, define $K=(K_i,K_\alpha)$ where $K_i=\ker\theta_i$ and \[ \begin{tikzcd}
+		K_{s(\alpha)} \arrow[dashed]{r}{K_\alpha} \arrow{d} & K_{t(\alpha)} \arrow{d}\\
+		V_{s(\alpha)} \arrow{r}{V_\alpha} \arrow{d}{\theta_{s(\alpha)}} & V_{t(\alpha)} \arrow{d}{\theta_{t(\alpha)}}\\
+		W_{s(\alpha)} \arrow{r}{W_\alpha}& W_{t(\alpha)}
+		\end{tikzcd}\]
+		\end{definition}
+		
+		\begin{lemma}
+			$K$ is the kernel of $\theta$ in the category $\Rep_\mathbb{F}Q$.
+		\end{lemma}
 
   \section{Root Systems and Gabriel's Theorem}
 
