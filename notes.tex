@@ -1,5 +1,5 @@
 \documentclass{book}
-\usepackage{amsmath,amssymb,latexsym,mathtools,tikz-cd}
+\usepackage{amsmath,amssymb,latexsym,mathtools,tikz-cd,amsthm}
 \usepackage[margin=1in]{geometry}
 
 \title{From Quivers to Quantum Groups}
@@ -14,6 +14,7 @@
  \newtheorem{remark}[theorem]{Remark}
  \newtheorem{example}{Example}[section]
  \newtheorem {exercise}[theorem] {Exercise}
+ \newtheorem* {obs*}{Observation}
  % Define math operators
  \DeclareMathOperator{\rank}{rank}
  \DeclareMathOperator{\Hom}{Hom}
@@ -139,6 +140,60 @@
 		\begin{lemma}
 			$K$ is the kernel of $\theta$ in the category $\Rep_\mathbb{F}Q$.
 		\end{lemma}
+
+
+	\subsection{Extensions}
+		\begin{definition} 
+			Let U,V, and W be representations of a quiver Q. We call V an \underline{extension of W by U} if there exists an exact sequence $0 \rightarrow U \xrightarrow{\phi} V 				\xrightarrow{\psi} W \rightarrow 0$. \\ i.e. $\phi$ is injective, $\psi$ is surjective, and $\im \phi = \ker \psi$.
+		\end{definition}
+	We call two extensions $V$ and $V'$ of $W$ by $U$ equivalent if there exists an isomorphism $\theta : V \rightarrow V'$ making the following diagram commute.
+		\[ \begin{tikzcd}
+		0 \arrow{r} & U \arrow[equal]{d} \arrow{r}{\phi}& V \arrow{r}{\psi}\arrow{d}{\theta} & W  \arrow[equal]{d} \arrow{r} & 0 \\
+		0 \arrow{r} & U \arrow{r}{\phi '} & V' \arrow{r}{\psi '} & W \arrow{r}& 0 
+		\end{tikzcd}\]
+	This clearly defines an equivalence relation on the set of extensions of $W$ by $U$, and we write $ Ext_Q(W,U)$ for the set of equivalences classes of these extensions. 
+
+		\begin{exercise}
+			Consider a commutative diagram 
+			\[ \begin{tikzcd}
+			0 \arrow{r} & U \arrow{d}{\phi} \arrow{r}& V \arrow{r}\arrow{d} & W  \arrow{d}{\psi} \arrow{r} & 0 \\
+			0 \arrow{r} & U' \arrow{r} & V' \arrow{r} & W' \arrow{r}& 0 
+			\end{tikzcd}\]
+			Show that the right hand square is a pullback if and only if $\phi$ is an isomorphism, and show that the left hand square is a pushout if and only if $\psi$ is an isomorphism.
+		\end{exercise}
+		\begin{definition} 
+			Given $[V],[V'] \in Ext_Q(W,U)$, define their \underline{Baer sum} $[V]+[V']=[V'']$ by the following commutative diagram:
+			\[ \begin{tikzcd}
+			0 \arrow{r} & U \oplus U \arrow[equal]{d} \arrow{r}& V \oplus V' \arrow{r} & W \oplus W \arrow{r}  \arrow[dl, phantom, "\urcorner", very near start] & 0 \\
+			0 \arrow{r} & U \oplus U  \arrow[dr, phantom, "\ulcorner", very near start] \arrow[d, "(1 \text{,}-1)"'] \arrow{r} & X \arrow{r}\arrow{u} \arrow{d} & W \arrow[u, "\Delta"'] \arrow{r}\arrow[equal]{d}& 0 \\
+			0 \arrow{r} & U \arrow{r} & V'' \arrow{r} & W \arrow{r}& 0 
+			\end{tikzcd}\]
+		\end{definition}
+	It is immediate from the universal property of the pullback that equivalent choices of $V$ and $V'$ produce equivalent $X's$ and then the universal property of the pushout shows that the class of $V''$ does not depend on the choice of representatives for $[V]$ and $[V']$. 
+
+		\begin{prop}
+			The Baer sum defines an abelian group structure on the set $Ext_Q(W,U)$ for any $U,W \in Rep_\mathbb{F}Q$ where $[W\oplus U]$ is the identity element and given $[V] \in Ext_Q(W,U)$ represented by a sequence $0 \rightarrow U \xrightarrow{\phi} V \xrightarrow{\psi} W \rightarrow 0$, the class $-[V]$ is represented by the sequence $0 \rightarrow U \xrightarrow{-\phi} V \xrightarrow{\psi} W \rightarrow 0$ or equivalently $0 \rightarrow U \xrightarrow{\phi} V \xrightarrow{-\psi} W \rightarrow 0$
+
+		\end{prop}
+
+		\begin{obs*}
+			Let $U$ and $W$ be representations of $Q$. For any choice of maps $g_{\alpha} :W_{s(\alpha)} \rightarrow U_{t(\alpha)}$ for $\alpha \in Q_1$, we can build an extension $V_g$ of $W$ by $U$ where $V_i = W_i \oplus U_i$ for $i \in Q_0$ and $V_{\alpha} = \begin{bmatrix}W_{\alpha} & 0\\ g_{\alpha} & U_{\alpha} \end{bmatrix}$ for $\alpha \in Q_1$.
+		\end{obs*}
+
+	It turns out that every extension arises in this way and we can determine which choices of $g$ give equivalent extensions. 
+
+		\begin{theorem}[Ringel] 
+			For $U,W \in Rep_{\mathbb{F}} Q$ define a map $$\gamma_{W,U}:\bigoplus_{i \in Q_{0}} Hom_{\mathbb{F}}(W_i,U_i) \rightarrow \bigoplus_{\alpha \in Q_{1}} Hom_{\mathbb{F}}(W_{s(\alpha)},U_{t(\alpha)}) $$ Via $$ \theta \mapsto (U_{\alpha} \circ \theta_{s(\alpha)} - \theta_{t(\alpha)} \circ W_{\alpha})_{\alpha \in Q_1}.$$ Then there are isomorphisms $ker(\gamma_{W,U}) \cong Hom_Q(W,U)$ and $coker(\gamma_{W,U}) \cong Ext_Q(W,U)$.
+		\end{theorem}
+		
+		\begin{proof}
+			The kernel of $\gamma_{W,U}$ is exactly the set of maps $\theta :W \rightarrow U$ with $U_{\alpha} \circ \theta_{s(\alpha)} = \theta_{t(\alpha)} \circ W_{\alpha}$, i.e. the set $Hom_Q(W,U)$. We already have the map $\bigoplus_{\alpha \in Q_{1}} Hom_{\mathbb{F}} (W_{s(\alpha)},U_{t(\alpha)}) \rightarrow Ext_Q(W,U)$. \\ Given any extension $0 \rightarrow U \rightarrow V \rightarrow W \rightarrow 0$, there is a splitting $V_i= W_i \oplus U_i$ of $\mathbb{F}$-vector spaces and since U is a subrepresentation of V under these splittings the map $V_{\alpha}$ takes the form $\begin{bmatrix}W_{\alpha} & 0\\ g_{\alpha} & U_{\alpha} \end{bmatrix}$ for some $g_{\alpha} \in Hom_{\mathbb{F}}(W_{s(\alpha)}, U_{t(\alpha)}).$ \\ It remains to show that the kernel of this map is the image of $\gamma_{W,U}$. Consider $g \in \bigoplus_{\alpha \in Q_1} Hom_{\mathbb{F}}(W_{s(\alpha)},U_{t(\alpha)})$ such that $[V_g]=[W\oplus U]$. That is we have a commutative diagram,
+		\[ \begin{tikzcd}
+			0 \arrow{r} & U \arrow[equal]{d} \arrow{r}& V_g \arrow{r}\arrow{d}{\theta} & W  \arrow[equal]{d} \arrow{r} & 0 \\
+			0 \arrow{r} & U \arrow{r} & W\oplus U \arrow{r} & W \arrow{r}& 0 
+			\end{tikzcd}\]
+write $\theta_i =\begin{bmatrix} \theta_{11}^{(i)} & \theta_{12}^{(i)}\\ \theta_{21}^{(i)} &\theta_{22}^{(i)} \end{bmatrix}$ with $\theta_{11}^{(i)}:W_i \rightarrow W_i$, $\theta_{12}^{(i)}:U_i \rightarrow W_i$, $\theta_{21}^{(i)}:W_i \rightarrow U_i$, and $\theta_{22}^{(i)}:U_i \rightarrow U_i$. Commutativity of the squares immediately gives $\theta_{11}^{(i)}=id_{W_i}$, $\theta_{22}^{(i)}=id_{U_i}$, and $\theta_{12}^{(i)}=0$
+		\end{proof}
 
   \section{Root Systems and Gabriel's Theorem}
 
