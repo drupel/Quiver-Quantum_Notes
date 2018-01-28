@@ -1,5 +1,5 @@
 \documentclass{book}
-\usepackage{amsmath,amssymb,latexsym,mathtools,tikz-cd,amsthm}
+\usepackage{amsmath,amssymb,latexsym,mathtools,tikz-cd,amsthm,stackrel}
 \usepackage[margin=1in]{geometry}
 
 \title{From Quivers to Quantum Groups}
@@ -15,6 +15,7 @@
  \newtheorem{example}{Example}[section]
  \newtheorem {exercise}[theorem] {Exercise}
  \newtheorem* {obs*}{Observation}
+ \newtheorem* {recall*}{Recall}
  % Define math operators
  \DeclareMathOperator{\rank}{rank}
  \DeclareMathOperator{\Hom}{Hom}
@@ -195,6 +196,81 @@
 write $\theta_i =\begin{bmatrix} \theta_{11}^{(i)} & \theta_{12}^{(i)}\\ \theta_{21}^{(i)} &\theta_{22}^{(i)} \end{bmatrix}$ with $\theta_{11}^{(i)}:W_i \rightarrow W_i$, $\theta_{12}^{(i)}:U_i \rightarrow W_i$, $\theta_{21}^{(i)}:W_i \rightarrow U_i$, and $\theta_{22}^{(i)}:U_i \rightarrow U_i$. Commutativity of the squares immediately gives $\theta_{11}^{(i)}=id_{W_i}$, $\theta_{22}^{(i)}=id_{U_i}$, and $\theta_{12}^{(i)}=0$
 		\end{proof}
 
+		\begin{recall*}
+			$\underline{dim}(U) = (dim(U))_{i \in Q_0} \in \mathbb{Z}^{Q_0}$ is the \underline{dimension vector} of U. 
+		\end{recall*}
+		\begin{definition}
+			The \underline{Euler-Ringel form} $<.,.>:\mathbb{Z}^{Q_0} \times \mathbb{Z}^{Q_0} \rightarrow \mathbb{Z}$ is the bilinear form given by $$\displaystyle{<\underline{w},\underline{u}>:= \sum_{i \in Q_0} w_i u_i - \sum_{\alpha \in Q_1} w_{s(\alpha)} u_{t(\alpha)}}.$$
+		\end{definition}
+
+		\begin{corollary}
+			For $U,W \in rep_\mathbb{F} Q$, we have $dim(Hom_Q(W,U))-dim(Ext_Q(W,U)) = <\underline{dim}W, \underline{dim}U>$.
+We will use the notation $<W,U>$ to represent this.
+		\end{corollary}
+
+		\begin{example}
+			$Q : 1 \leftarrow 2$ \\
+			Q has irreducible representations:
+			$$\mathbb{F} \leftarrow 0 =S_1=P_1$$
+			$$0 \leftarrow \mathbb{F} =S_2=I_2$$
+			$$\mathbb{F} \xleftarrow{id} \mathbb{F} = I_1 =P_2.$$
+			With
+			$$ 0 \rightarrow S_1 \rightarrow P_2 \rightarrow S_2 \rightarrow 0$$
+			$$<S_2,S_1>=0-1=-1$$
+			but $Hom_Q(S_2,S_1)=0$, so $Ext_Q(S_2,S_1) \cong \mathbb{F}$.
+			We need to check $ 0 \rightarrow S_1 \rightarrow P_2 \rightarrow S_2 \rightarrow 0 $ is not the trivial extension.
+			Does there exist a $\theta$ such that the following diagram commutes?
+			\[ \begin{tikzcd}
+			0 \arrow{r} & S_1 \arrow[equal]{d} \arrow{r}& P_2\arrow{r}\arrow{d}{\theta} & S_2  \arrow[equal]{d} \arrow{r} & 0 \\
+			0 \arrow{r} & S_1 \arrow{r} & S_1 \oplus S_2 \arrow{r} & S_2 \arrow{r}& 0 
+			\end{tikzcd}\]
+			This would give a surjective map $P_2 \twoheadrightarrow S_1$, but no such map exists by the Diagram below.
+			\[ \begin{tikzcd}
+			\mathbb{F} \arrow[d, "\lambda \neq 0" ']&  \arrow{l}{id} \mathbb{F} \arrow{d}  \\
+			\mathbb{F}  & \arrow{l} 0
+			\end{tikzcd}\]
+			So $[P_2]$ is nontrivial and thus spans $Ext_Q(S_2,S_1).$
+		\end{example}
+
+		\begin{example}
+			$Q : 1 \stackbin[\beta]{\alpha}{\leftleftarrows} 2$ \\
+			Q has simple representations:
+			$$\mathbb{F} \leftleftarrows 0 =S_1$$
+			$$0 \leftleftarrows \mathbb{F} =S_2$$
+			
+			With
+			$$<S_1,S_2>=0$$
+			$$<S_2,S_1>=0-2=-2.$$
+			Since $dim(Hom_Q(S_2,S_1))=0$ we get $dim(Ext_Q(S_2,S_1)) = 2$.
+			The indecomposables of Q with dimension vector $(1,1)$ are $$\delta_{(\lambda,\mu)} : \mathbb{F}  \stackbin[\mu]{\lambda}{\leftleftarrows} \mathbb{F}$$ where ${(\lambda,\mu)} \neq (0,0)$.
+			Which of these $\delta_{(\lambda,\mu)}$ are isomorphic?\\
+			Clearly $\delta_{(\lambda,\mu)} \cong \delta_{(k\lambda,k\mu)}$ for any nonzero scalar $k\in \mathbb{F}$
+			\[ \begin{tikzcd}
+			\mathbb{F} \arrow[d, "k \neq 0" '] &  \arrow[l, "\lambda"',yshift=0.7ex] \arrow[l,"\mu",yshift=-0.7ex]  \mathbb{F} \arrow{d}{1}  \\
+			\mathbb{F}  &  \arrow[l, "k\lambda"',yshift=0.7ex] \arrow[l,"k\mu",yshift=-0.7ex]  \mathbb{F}
+			\end{tikzcd}\]
+		\end{example}
+
+		\begin{prop}
+			Indecomposable representations of $Q : 1 \stackbin[\beta]{\alpha}{\leftleftarrows} 2$ with dimension vector $(1,1)$ are parameterized by points of $\mathbb{P}^1$.
+		\end{prop}
+		\begin{proof}
+			Consider two points $[\lambda:\mu] ,[\lambda ' : \mu '] \in \mathbb{P}^1$. Assume $\delta_{(\lambda,\mu)}$ and $\delta_{(\lambda ',\mu ')}$ 				are isomorphic.
+			\[ \begin{tikzcd}
+			\mathbb{F} \arrow[d, "k \neq 0" '] &  \arrow[l, "\lambda"',yshift=0.7ex] \arrow[l,"\mu",yshift=-0.7ex]  \mathbb{F} \arrow{d}{k ' \neq 0}  \\
+			\mathbb{F}  &  \arrow[l, "\lambda ' "',yshift=0.7ex] \arrow[l,"\mu ' ",yshift=-0.7ex]  \mathbb{F}
+			\end{tikzcd}\]
+			This being a map of quiver representations implies that $k \lambda = \lambda ' k'$ and $k\mu =\mu ' k'$.
+			If $\lambda = 0$ then $[\lambda:\mu] =[\lambda ' : \mu ']=[0:1]$, and if  $\mu = 0$ then $[\lambda:\mu] =[\lambda ' : \mu ']=[1:0]$.
+			Otherwise we have $\frac{\lambda}{\mu} = \frac{\lambda'}{\mu'}$ again giving $[\lambda:\mu] =[\lambda ' : \mu ']$.
+		\end{proof}
+		So what are the natural generators of $Ext_Q(S_2,S_1)$?
+		\begin{exercise}
+			Show that $\lambda [\delta_{[1:0]}] + \mu [\delta_{[0:1]}] =[\delta_{[\lambda:\mu]}]  $ and thus $$ 0 \rightarrow S_1 \rightarrow \delta_{[1:0]} \rightarrow S_2 \rightarrow 0$$ and $$ 0 \rightarrow S_1 \rightarrow \delta_{[0:1]} \rightarrow S_2 \rightarrow 0$$ give a basis for $Ext_Q(S_2,S_1)$.
+		\end{exercise}
+		Now we can see that $<\delta,S_2>=1-0=1$ but $Hom_Q(\delta,S_2) \cong \mathbb{F}$ and so $Ext_Q(\delta,S_2)=0$.
+		Similarly $<S_1,\delta>=1$ with $dim(Hom_Q(S_1,\delta)) =1$ and so $Ext_Q(S_1,\delta)=0$. Also $<\delta,S_1>=1-2=-1$ and $dim(Hom_Q(\delta,S_1)) =0$ implies  $dim(Ext_Q(\delta,S_1))=1$. Similarly $dim(Ext_Q(S_2,\delta))=1$.
+		
   \section{Root Systems and Gabriel's Theorem}
 
   \section{Auslander-Reiten Theory}
