@@ -23,6 +23,7 @@
  \DeclareMathOperator{\rep}{rep}
  \DeclareMathOperator{\im}{im}
  \DeclareMathOperator{\coker}{coker}
+ \newcommand{\id}{\mathrm{id}}
 
 \begin{document}
   \maketitle
@@ -175,7 +176,57 @@
             For any morphism $\theta: V\to W$ of representations, we have an isomorphism $\im\theta\cong V / \ker\theta$.
         \end{theorem}
         
+        \begin{proof}
+            Observe that $\im\theta=(\theta_i(v_i),I_\alpha)$ where for $v_{s(\alpha)}\in V_{s(\alpha)}$ we get \[I_\alpha(\theta_{s(\alpha)}(v_{s(\alpha)}))=\theta_{t(\alpha)}(V_\alpha(v_{s(\alpha)}))\] and $V/\ker\theta=(V_i+\ker\theta_i,Q_\alpha)$ where \[Q_\alpha(v_{s(\alpha)}+\ker\theta_{s(\alpha)})=V_\alpha(v_{s(\alpha)})+\ker\theta_{t(\alpha)}.\] But each $\theta_i$ is $\mathbb{F}$-linear and so there are isomorphisms 
+                \begin{align*}
+                    \bar{\theta}_i:V_i/\ker\theta_i &\to \im\theta_i \\
+                    v_i+\ker\theta_i &\mapsto \theta_i(v_i).
+                \end{align*}
+            These satisfy $\bar{\theta}_{t(\alpha)}\circ Q_\alpha=I_\alpha\circ\bar{\theta}_{s(\alpha)}$ and so we get an isomorphism $V/\ker\theta\cong\im\theta$.
+        \end{proof}
         
+        \begin{theorem}
+            Let $\mathbb{F}$ be a field and $Q$ a quiver. With the above notions of kernel and cokernel, $\Rep_\mathbb{F}Q$ has the structure of an $\mathbb{F}$-linear abelian category.
+        \end{theorem}
+        
+        \begin{proof}
+            Last time we observed $\mathbb{F}$-linearity and additive structure. 
+                \begin{exercise}
+                    Check that $\Hom()\times\Hom()\to\Hom()$ is bilinear.
+                \end{exercise}
+            It remains to observe that given a morphism $\theta:V\to W$ with kernel $\iota:K\to V$ and cokernel $\pi:W\to C$, we have $\coker\iota=\ker\theta.$ But this is essentially the statement of the First Isomorphism Theorem.
+        \end{proof}
+        
+        \begin{example}
+            We saw last time that the two subspace quiver $1\to 3 \leftarrow 2$ has six isomorphism classes of indecomposables:
+                \begin{align*}
+                    S_1 &= \mathbb{F} \to 0 \leftarrow 0 \\
+                    S_3 &= 0 \to \mathbb{F} \leftarrow 0 \\
+                    S_2 &= 0 \to 0 \leftarrow \mathbb{F} \\
+                    P_1 &= \mathbb{F} \overset{\id}{\to} \mathbb{F} \leftarrow 0 \\
+                    P_2 &= 0 \to \mathbb{F} \overset{\id}{\leftarrow} \mathbb{F} \\
+                    I_3 &= \mathbb{F} \overset{\id}{\to} \mathbb{F} \overset{\id}{\leftarrow} \mathbb{F}
+                \end{align*}
+            Consider $x\in \Hom_Q(S_3,I_3).$ 
+                \[ \begin{tikzcd}
+		            0 \arrow{r}{0} \arrow{d}{0} & \mathbb{F} \arrow{d}{x\neq 0} & 0 \arrow{l}{0}\arrow{d}{0}\\
+		            \mathbb{F} \arrow{r} \arrow{d} & \mathbb{F}\arrow{d} & \arrow{l} \arrow{d}\mathbb{F} \\
+		            \mathbb{F} \arrow{r} & 0 & \mathbb{F} \arrow{l}
+		        \end{tikzcd}\]
+		    So $\Hom_Q(S_3,I_3)=\mathbb{F}$ and $\coker(x)\cong S_1\oplus S_2.$ In a similar way, we determine that $\Hom_Q(I_3,P_1)=0$ using the diagram below. 
+		        \[ \begin{tikzcd}
+		            \mathbb{F} \arrow{r} \arrow{d}{0} & \mathbb{F} \arrow{d}{0} & \mathbb{F} \arrow{l}{\id}\arrow{d}{0}\\
+		            \mathbb{F} \arrow{r} & \mathbb{F} & 0 \arrow{l}
+		        \end{tikzcd}\]
+		    Considering all possible homomorphisms between indecomposable representations, we can construct what is called the Auslander-Reiten Quiver for our example:
+		        \[\begin{tikzcd}
+		            & P_1 \arrow{dr} & & S_2 \\
+		            S_3 \arrow{ur}\arrow{dr} && I_3 \arrow{ur}\arrow{dr} \\
+		            & P_2 \arrow{ur} && S_1
+		        \end{tikzcd}\]
+        \end{example}
+
+
 
 
 	\subsection{Extensions}
