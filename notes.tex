@@ -16,6 +16,8 @@
  \newtheorem {exercise}[theorem] {Exercise}
  \newtheorem* {obs*}{Observation}
  \newtheorem* {recall*}{Recall}
+ \newtheorem{claim}[theorem]{Claim}
+ \newtheorem* {facts*}{Facts}
  % Define math operators
  \DeclareMathOperator{\rank}{rank}
  \DeclareMathOperator{\Hom}{Hom}
@@ -356,7 +358,106 @@ We will use the notation $<W,U>$ to represent this.
 		\end{exercise}
 		Now we can see that $<\delta,S_2>=1-0=1$ but $Hom_Q(\delta,S_2) \cong \mathbb{F}$ and so $Ext_Q(\delta,S_2)=0$.
 		Similarly $<S_1,\delta>=1$ with $dim(Hom_Q(S_1,\delta)) =1$ and so $Ext_Q(S_1,\delta)=0$. Also $<\delta,S_1>=1-2=-1$ and $dim(Hom_Q(\delta,S_1)) =0$ implies  $dim(Ext_Q(\delta,S_1))=1$. Similarly $dim(Ext_Q(S_2,\delta))=1$.
+
+		\begin{example}
+			Write $K(n)$ for the \underline{n-Kronecker quiver} $ \begin{tikzcd}
+			1  &   \arrow[l, "\alpha_1"',yshift=1.5ex]  \arrow[l, phantom, "{\vdots}"',yshift=.5ex]     \arrow[l,"\alpha_n",yshift=-1.5ex] 2
+			\end{tikzcd} $.\\ 
+			Our goal is to classify indecomposable representations of $K(n)$ of dimension vector$(m,1)$.
+			\[ \begin{tikzcd}
+			\mathbb{F}^m  &   \arrow[l, "\alpha_1"',yshift=1.8ex]  \arrow[l, phantom, "{\vdots}"',yshift=0.8ex]     \arrow[l,"\alpha_n",yshift=-1.2ex] \mathbb{F}
+			\end{tikzcd} \]
+		\end{example}
 		
+		\begin{claim}		
+			There are no indecomposables with dimension vector $(m,1)$ for $m>n$.
+		\end{claim}
+		
+		\begin{proof}
+			Given a representation $V\in M_{(m,1)}(K(n))$ the total image $\displaystyle \sum_{i=1}^n im(V_{\alpha_i})$ is at most $n$ dimensional. So for $m>n$ there are at least $m-n$ summands of $V$ isomorphic to $S_1$.
+		\end{proof}
+
+		\begin{claim}		
+			There is a unique (up to isomorphism) indecomposable representation of dimension vector $(n,1)$.
+		\end{claim}
+		
+		\begin{proof}
+			Let $V, V' \in M_{(n,1)}(K(n))$ be indecomposable representations. We build an isomorphism $V \xrightarrow{\theta} V'$ as follows,
+			\[ \begin{tikzcd}
+			\mathbb{F}^m \arrow[d, "\theta_1" '] &  \arrow[l, "V_{\alpha_1}"',yshift=1.8ex]  \arrow[l, phantom, "{\vdots}"',yshift=0.8ex]     \arrow[l,"V_{\alpha_n}",yshift=-1.2ex] 				\mathbb{F} \arrow{d}{id=\theta_2}  \\ 
+			\mathbb{F}^m  &  \arrow[l, "V'_{\alpha_1}"',yshift=1.5ex]  \arrow[l, phantom, "{\vdots}"',yshift=0.5ex]     \arrow[l,"V'_{\alpha_n}",yshift=-1.5ex] \mathbb{F}
+			\end{tikzcd}\]
+			by observing that $\{ V_{\alpha_i}(1)\}^n_{i=1}$ and $\{ V'_{\alpha_i}(1)\}^n_{i=1} $ are bases of $\mathbb{F}^n$ and so $\theta_1$ is the change of basis matrix giving isomorphism $\theta$.
+
+		\end{proof}
+	
+		Write $P_2= \begin{tikzcd}
+			\mathbb{F}^n  &   \arrow[l, "e_1"',yshift=1.5ex]  \arrow[l, phantom, "{\vdots}"',yshift=.5ex]     \arrow[l,"e_n",yshift=-1.5ex] \mathbb{F}
+			\end{tikzcd}$, where $P_{2,\alpha_i}$ is the map picking out the $i^{th}$ standard basis vector. 
+
+		\begin{claim}		
+			For any indecomposable $V \in M_{(m,1)}(K(n))$ for $m\leq n$, we have $Hom_{K(n)}(P_2,V) \cong \mathbb{F}$.
+		\end{claim}
+		
+		\begin{proof}
+			\[ \begin{tikzcd}
+			\mathbb{F}^n \arrow[d, "{[V_{\alpha_1}(1), \cdots ,V_{\alpha_n}(1)]}"' ] &  \arrow[l, yshift=1.8ex]  \arrow[l, phantom, "{\vdots}"',yshift=0.8ex]     							\arrow[l,yshift=-1.2ex] \mathbb{F} \arrow{d}{id} & = P_2  \\ 
+			\mathbb{F}^m  &  \arrow[l, yshift=1.5ex]  \arrow[l, phantom, "{\vdots}"',yshift=0.5ex]     \arrow[l, yshift=-1.5ex] \mathbb{F} & = V
+			\end{tikzcd}\]
+
+		\end{proof}
+
+		\begin{claim}		
+			The indecomposable representations of dimension vector $(m,1)$ for $0\leq m \leq n$ are parameterized by $Gr_m(\mathbb{F}^n)$
+		\end{claim}
+		
+		\begin{proof}
+			They are parameterized by $m\times n$ matrices of rank $m$ up to $GL_m$ action on the left. 
+		\end{proof}
+
+
+		\subsection{Another Interpretation for Ext}
+
+			Fix $\underline{d} \in \mathbb{N}^{Q_0}$, write $M_{\underline{d}}(Q) = \displaystyle \prod_{\alpha \in Q_1} Hom(\mathbb{F}^{d_{s(\alpha)}}, \mathbb{F}^{d_{t(\alpha)}})$ for the moduli representations of Q with dimension vector $\underline{d}$. $GL_{\underline{d}} =  \displaystyle \prod_{i \in Q_0} GL_{d_i}(\mathbb{F})$ acts on $M_{\underline{d}}(Q)$ by $$(g \cdot V)_{\alpha} = g_{t(\alpha)} V_{\alpha} g_{s(\alpha)}^{-1}.$$  This action is algebraic, $GL_{\underline{d}} \times M_{\underline{d}}(Q) \rightarrow M_{\underline{d}}(Q) .$ For $V \in M_{\underline{d}}(Q)$, write $\mathcal{O}_V := GL_{\underline{d}}\cdot V$ for the orbit through V. This is the set of all representations isomorphic to V. 
+
+		\begin{facts*}
+			
+		\begin{enumerate}
+		
+			\item   $\mathcal{O}_V$ is a smooth subvariety of  $M_{\underline{d}}(Q)$.		
+		  \item  $\mathcal{O}_V$ is open in $\overline{\mathcal{O}_V}$
+	
+		\end{enumerate}
+		\end{facts*}
+
+		\begin{definition}
+			The \underline{Tits form} $q:\mathbb{N}^{Q_0} \rightarrow \mathbb{Z}$ is the quadratic form $q(\underline{d})=\left<\underline{d},\underline{d}\right> = \displaystyle \sum_{i \in Q_0} d_i^2 - \sum_{\alpha \in Q_1} d_{s(\alpha)}d_{t(\alpha)}.$
+		\end{definition}
+
+		\begin{lemma}
+			$dim(M_{\underline{d}}(Q)) - dim(\mathcal{O}_V) = dim(End_Q(V))-q(\underline{d}) = dim(Ext_Q(V,V)).$
+		\end{lemma}
+		
+		\begin{proof}
+			$$dim(M_{\underline{d}}(Q)) =  \displaystyle \sum_{i \in Q_0} d_i^2 - q(\underline{d}) .$$
+
+			\begin{eqnarray*}
+				dim(\mathcal{O}_V) &=&  dim(GL_{\underline{d}}) - dim(Stab_{GL_{\underline{d}}}(V)) \\
+							&=&   dim(GL_{\underline{d}}) - dim(Aut_{Q}(V)) \\
+							&=&  \displaystyle \sum_{i \in Q_0} d_i^2  - dim(Aut_{Q}(V)) \\
+							&=&  \displaystyle \sum_{i \in Q_0} d_i^2  - dim(End_{Q}(V)). 
+			\end{eqnarray*}
+			$$q(\underline{d}) = dim(Hom_Q(V,V)) - dim(Ext_Q(V,V)).$$
+			The result follows.
+		\end{proof}
+
+		Let $N_{M_{\underline{d}}(Q)}(\mathcal{O}_V) = TM_{\underline{d}}(Q)|_{\mathcal{O}_V} /T\mathcal{O}_V$. The dimension of a fiber of $N_{M_{\underline{d}}(Q)}(\mathcal{O}_V)$ is  $dim(M_{\underline{d}}(Q)) - dim (\mathcal{O}_V) = dim Ext_Q(V,V)$. So the number $dim Ext_Q(V,V)$ is measuring the possible deformations of V. 
+
+		\begin{definition}
+			$V$ is \underline{rigid} if  $dim Ext_Q(V,V)=0.$
+		\end{definition} 
+
+
   \section{Root Systems and Gabriel's Theorem}
 
   \section{Auslander-Reiten Theory}
