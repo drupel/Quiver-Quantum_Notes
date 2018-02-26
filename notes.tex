@@ -691,6 +691,80 @@ Embed the Dynkin quiver $Q$ into its corresponding Euclidean quiver $\tilde{Q}$.
 \chapter{Hall Algebras}
 
   \section{Basic Definitions}
+  
+      	Let Q be a quiver and $\mathbb{F}$ a field.
+ 	\underline{Goal}: Encode the extension structure of the category $\rep_\mathbb{F}Q$ into an algebraic object and then use our understanding of $\rep_\mathbb{F}Q$ to study this object.
+    
+    	\subsection{Geometric Picture}
+        	Recall the moduli space $M_{\underline{d}}(Q)$ of representations of dimension vector $\underline{d}\in \mathbb{Z}_{\geq 0}^{Q_0}$. For $\underline{d},\underline{d}'\in \mathbb{Z}_{\geq 0}^{Q_0}$, write $E_{\underline{d},\underline{d}'}(Q)$ for the set of all short exact sequences
+            		\[ \begin{tikzcd}
+				0 \arrow{r} & U \arrow{r} &V \arrow{r} &W \arrow{r} &0
+			\end{tikzcd}\]
+		with $W\in M_{\underline{d}}(Q)$ and $U\in M_{\underline{d}'}(Q)$. There exist projections
+			\[ \begin{tikzcd} &\arrow{dl}{\pi_1} E_{\underline{d},\underline{d}'}(Q)\arrow{d}{\pi_2}\arrow{dr}{\pi_3}& \\
+		    		M_{\underline{d}}(Q) & M_{\underline{d}+\underline{d}'}(Q) & M_{\underline{d}'}(Q)
+			\end{tikzcd}\]
+        	Given functions $f:M_{\underline{d}}(Q)\to \mathbb{C}$ and $g:M_{\underline{d}'}(Q)\to \mathbb{C}$, we can pull each of these back to $E_{\underline{d},\underline{d}'}(Q)$ and multiply them there $\pi_1^*(f)\pi_3^*(g)$ then push-forward along the map $\pi_2$ by integrating along the fibers:
+        	\[(\pi_2)_*\left(\pi_1^*(f)\pi_3^*(g)\right)(v)=\int_{(w,u)\in \pi_2^{-1}(v)}f(w)g(w) \ d\chi\]
+        	We won't make precise what measure to use in general, but we will use this as motivation for defining an algebra attached to $Q$ whose structure constants encode extensions.
+    
+    \begin{definition}
+        For $W\inM_{\underline{d}}(Q)$, write $1_W$ for the characteristic function
+        \[1_W(W') = \begin{cases} 
+        1 & \text{if } \  W=W' \\
+        0 & \text{else}
+        \end{cases}\]
+    \end{definition}
+    
+    \textbf{Observation}: When computing $(\pi_2)_*(\pi_1^*(1_W)\pi_3^*(1_U))(v)$ on a point $V\in M_{\underline{d}+\underline{d}'}(Q)$, we only have to integrate over the space 
+    \begin{align*}
+        \mathcal{P}_{W,U}^V :&= \pi_2^{-1}(V)\cap\pi_1^{-1}(W)\cap \pi_3^{-1}(U)\\
+        &= \left\{ (\theta,\varphi): 
+        0\to U\xrightarrow{\theta} V\xrightarrow{\varphi} W\to 0
+        \ \text{is exact}\right\}
+    \end{align*}
+    
+    From now on, take $\mathbb{F}=\mathbb{F}_q$ a finite field with $q$ elements. Define the measure $\chi$ on $E_{\underline{d},\underline{d}'}(Q)$ to be the weighted counting measure with 
+    \[\chi\left(0\to U\to  V\to W\to 0\right):=\frac{q^{\left<W,U\right>}}{a_W \cdot a_U}=\frac{q^{\left<\underline{d},\underline{d}'\right>}}{a_W\cdot a_U} \]
+    where $A_W=|\text{Aut}(W)|$.
+    
+    \begin{definition}
+        Write $\mathcal{H}_Q$ for the space of finitely supported functions on \[\prod_{\underline{d}\in\mathbb{Z}_{\geq 0}^{Q_0}} M_{\underline{d}}(Q).\] This is spanned by the characteristic functions $1_W$ for $W\in M_{\underline{d}}(Q)$ and we can consider $\mathcal{H}_Q$ as an algebra using the convolution product
+        \begin{align*}
+            1_W*1_U &= (\pi_2)_*(\pi_1^*1_W\cdot \pi_3^*1_U)\\
+            &= \sum_{V\in M_{\underline{d}+\underline{d}'}(Q)}q^{\left<\underline{d},\underline{d}'\right>}\frac{|\mathcal{P}_{W,U}^V|}{a_W\cdot a_U}1_V.
+        \end{align*}
+    \end{definition}
+    
+    So $\mathcal{H}_Q$ is the $\mathbb{C}$-vector space spanned by the isomorphism classes of representations in $\rep_\mathbb{F}(Q)$ with multiplication given by
+    \[[W]\cdot[U]=\sum_{[V]}q^{\left<W,U\right>}\frac{|\mathcal{P}_{W,U}^V|}{a_W\cdot a_U}[V].\]
+    
+    \begin{lemma}
+    	\[\frac{|\mathcal{P}_{W,U}^V|}{a_W\cdot a_U}=|\mathcal{F}_{W,U}^V|\] where \[\mathcal{F}_{W,U}^V=\{E\subseteq V : E\cong U, V/E \cong W\}\]
+    \end{lemma}
+    \begin{proof}
+    	There exists a map $\pi:\mathcal{P}_{W,U}^V\to\mathcal{F}_{W,U}^V$ which sends $(\theta,\varphi)$ to $\im(\theta)$. The fiber of $\pi$ over $E\in \mathcal{F}_{W,U}^V$ is $\{(\theta,\varphi):\im\theta = E\}\cong\text{Aut}(W)\times\text{Aut}(U)$.
+    \end{proof}
+    
+    Let $P_{W,U}^V=|\mathcal{P}_{W,U}^V|$ and $F_{W,U}^V=|\mathcal{F}_{W,U}^V|$.
+    
+    \begin{corollary}
+        The multiplication on $\mathcal{H}_Q$ is associative with unit $[0]$.
+    \end{corollary}
+    
+    \begin{proof}
+        Unit is obvious. For $U,W,X\in\rep_\mathbb{F}(Q)$, we have 
+        \[[X]\cdot\Big([W]\cdot[U]\Big)=\sum_{[V]}q^{\left<W,U\right>}F_{W,U}^V[X]\cdot[V]=\sum_{[Y]}\sum_{[V]}q^{\left<W,U\right>}q^{\left<X,V\right>}F_{W,U}^VF_{X,V}^Y[Y]\]
+        and
+        \[ \Big([X]\cdot[W]\Big)\cdot[U] = \sum_{[T]}q^{\left<X,W\right>}F_{X,W}^T[T]\cdot[U] = \sum_{[Y]}\sum_{[T]}q^{\left<X,W\right>}q^{\left<T,U\right>}F_{X,W}^T F_{T,U}^Y[Y].\]
+        But we get \[ \left<W,U\right>+\left<X,V\right> = \left<W,U\right>+\left<X,W\right>+\left<X,U\right> = \left<X,W\right>+\left<T,U\right>.\]
+        So we need to check that \[\sum_{[V]}F_{W,U}^V F_{X,V}^Y=\sum_{[T]}F_{X,W}^T F_{T,U}^Y.\]
+        Using the lemma, we see that $\sum_{[V]}F_{W,U}^V F_{X,V}^Y$ counts the cardinality of the set 
+        \[\{(A,B): A\subseteq B, B\subseteq Y, A\cong U, B/A\cong W, Y/B\cong X\}\]
+        and that $\sum_{[T]}F_{X,W}^T F_{T,U}^Y$ counts the cardinality of the set 
+         \[\{(C,A): A\subseteq Y, C\subseteq Y/A, A\cong U, C\cong W, (Y/A)/C\cong X\}.\]
+         But observe that choosing $C\subseteq Y/A$ is the same as choosing intermediate representation $A\subseteq B\subseteq Y$, where the bijection is given by $C=B/A$. Finally, $(Y/A)/C=(Y/A)/(B/A)=Y/B$, so the conditions on the sets are the same and so this bijection induces a bijection of the sets above.
+    \end{proof}
 
   \section{Bialgebra Structure}
 
