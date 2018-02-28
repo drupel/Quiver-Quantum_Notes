@@ -14,10 +14,19 @@
  \newtheorem{remark}[theorem]{Remark}
  \newtheorem{example}{Example}[section]
  \newtheorem {exercise}[theorem] {Exercise}
+ \newtheorem{note}[theorem]{Note}
+ \newtheorem{terminology}[theorem]{Terminology}
  \newtheorem* {obs*}{Observation}
  \newtheorem* {recall*}{Recall}
  \newtheorem{claim}[theorem]{Claim}
  \newtheorem* {facts*}{Facts}
+
+% We can decide how to typeset terms when they are defined later. For now, put them in italics.
+\newcommand{\defterm}{\emph}
+
+% A flag to keep track of things that need work:
+\newcommand{\problematic}[1]{\textcolor{red}{#1}}
+ 
  % Define math operators
  \DeclareMathOperator{\rank}{rank}
  \DeclareMathOperator{\Hom}{Hom}
@@ -26,6 +35,9 @@
  \DeclareMathOperator{\im}{im}
  \DeclareMathOperator{\coker}{coker}
  \newcommand{\id}{\mathrm{id}}
+ \DeclareMathOperator{\rad}{rad}
+ \DeclareMathOperator{\End}{End}
+ \DeclareMathOperator{\Ext}{Ext}
 
 \begin{document}
   \maketitle
@@ -683,9 +695,252 @@ Embed the Dynkin quiver $Q$ into its corresponding Euclidean quiver $\tilde{Q}$.
 
 
   \section{Root Systems and Gabriel's Theorem}
+  
+\begin{theorem}
+Let $Q$ be a connected quiver.
+\begin{enumerate}
+	\item If $Q$ is Euclidean, then the associated quadratic form $q$ is positive semi-definite with $\rad(q) = \mathbb{Z} \delta$.
+	\item If $Q$ is Dynkin, then $q$ is positive definite.
+	\item Otherwise, there exists $\underline d \geq 0$ with $q(\underline d) < 0$ and $(\underline d, \varepsilon_i) \leq 0$ for all $i$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+We did $(1)$ and $(2)$ last time. For $(3)$, observe that if $Q$ is not Euclidean or Dynkin, then there is a subquiver (not necessarily full) $Q'$ of $Q$ which is Euclidean. Indeed, one of the following holds:
+\begin{enumerate}
+	\item $Q$ has the same vertex set as a Euclidean quiver with some extra arrows.
+	\item $Q$ has a pair of vertices with more than two arrows -- then there is $\tilde A_2$ inside by removing arrows.
+	\item There exists a pair of vertices with exactly two arrows between them by removing vertices.
+	\item If $Q$ has unoriented cycles, then there is a $\tilde A_n$ inside.
+	\item If $Q$ has no parallel arrows and no unoriented cycles:
+	\begin{enumerate}
+		\item $Q$ has a vertex of valence $\geq 4$ -- then there is $\tilde D_4$ inside.
+		\item $Q$ has at least two vertices of valence 3 then some $\tilde D_n$ is inside.
+		\item $Q$ has a single vertex of valence 3. Then there is an $\tilde E_6$, $\tilde E_7$, or $\tilde E_8$ inside.
+	\end{enumerate}
+\end{enumerate}
+
+% Alternative argument:
+% \begin{enumerate}
+% 	\item If $Q$ has an unoriented cycle, then there is a $\tilde A_n$ inside.
+% 	\item Otherwise, $Q$ is a tree.
+% 	\begin{enumerate}
+% 		\item If there are no branches, then $Q$ is an $A_n$.
+% 		\item If there is a vertex of valence $\geq 4$, there is a $\tilde D_4$ inside.
+% 		\item If there are two vertices of valence \geq 3, there is a $\tilde D_n$ inside.
+% 		\item If there is exactly one vertex of valence $\geq 3$, then either we have $D_4, D_5$, or else there is a $\tilde E_6$, $\tilde E_7$, or $\tilde E_8$ inside.
+% 	\end{enumerate}
+% \end{enumerate}
+
+Now take $\underline d = \delta$ for $Q'$. If $Q_0' = Q_0$, then $q(\underline d) < q'(\underline d) = 0$. Otherwise there exists $i \in Q_0 \setminus Q_0'$ and we can take $\underline d = 2\delta + \varepsilon_j$ for some fixed $j$ outside $Q_0'$ but connected to $Q'$. Then $q(\underline d) = \langle \underline d, \underline d \rangle = 4 \langle \delta, \delta \rangle + 2 \langle \delta, \varepsilon_j \rangle + 2 \langle \varepsilon_j, \delta \rangle + \langle \varepsilon_j, \varepsilon_j \rangle$. The sum of them cross terms is $\leq -2$ because $i$ lies outside of $Q_0'$. We have $\langle \varepsilon_j, \varepsilon_j \rangle \leq 1$, and we have $4 \langle \delta, \delta \rangle \leq 4\langle \delta, \delta \rangle' \leq 0$. Altogether, the sum is $\leq -1 < 0$.
+
+Let us check that $(\underline d, \varepsilon_i) \leq 0$ for all $i$. We expand $(\underline d, \varepsilon_i) = (2\delta,\varepsilon_i) + (\varepsilon_j,\varepsilon_i)$. If $i \not \in Q_0'$ and $i \neq j$, then both terms are $\leq 0$. If $i=j \not \in Q_0'$, then the first term is $\leq -2$ (because $i$ is connected to $Q_0'$ and the second term is $\leq 2$. If $i \in Q_0'$ (so $i\neq j$), then the second term is zero, while the first term is $\leq 2(\delta, \varepsilon_i)_{Q_0'}$, which we can explicitly calculate to be 0.
+\end{proof}
+
+From now on, suppose that $Q$ is Euclidean or Dynkin.
+
+\begin{definition}
+Write $\Phi = \{\underline d \neq 0 \in \mathbb{Z}^{Q_0} \mid q(\underline d) \leq 1\}$ for the set of \defterm{roots}. We call $\underline d \in \Phi$ \defterm{real} if $q(\underline d) = 1$ and \defterm{imaginary} if $q(\underline d) = 0$.
+\end{definition}
+
+\begin{lemma}
+\begin{enumerate}
+	\item Each standard basis vector $\varepsilon_i$ is a real root.
+	\item If $\underline d \in \Phi \cup \{0\}$, then $-\underline d$ and $\underline d \pm \underline e$ are also in $\Phi$ for any $e \in \rad(q)$. 
+	\item For any $\underline d \in \Phi$, we have either $\underline d \geq 0$ or $\underline d \leq 0$.
+	\item The set of imaginary roots is $\begin{cases} \emptyset & Q \text{ is Dynkin} \\ \mathbb{Z}\delta \setminus \{0\} & Q \text{ is Euclidean} \end{cases}$.
+	\item If $Q$ is Euclidean, then $\Phi \cup \{0\} / \mathbb Z \delta$ is finite.
+	\item If $Q$ is Dynkin, then $\Phi$ is finite.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For $(2)$, first note that a quadratic form is invariant under multiplication by -1. Then we have $q(\underline d \pm \underline e) = q(\underline d) + q(\underline e) \pm (\underline d, \underline e) = \underline q(\underline d)$.
+
+For $(3)$, write $\underline d = \underline d_+ - \underline d_-$ with $\underline d_+, \underline d_- \geq 0$, so $\underline d_+$ and $\underline d_-$ have disjoint support; suppose they are both nonzero. Then $(\underline d_+, \underline d_-) \leq 0$ because of the disjoint support. Thus $1 \geq q(\underline d) = q(\underline d_+) + q(\underline d_-)$. Because $q$ is positive semidefinite and integral, either $q(\underline d_+) = 0$ or $q(\underline d_-) = 0$, i.e. one of them is radical. Since it is nonzero, it is sincere, a contradiction since it vanishes on the support of $\underline d_-$.
+
+For $(4)$, the lemma from last time shows that if $\rad(q) \neq 0$, then $Q$ is Euclidean and $\rad(q) = \mathbb{Z} \delta$.
+
+For $(5)$, the key point is that $\{\underline d \in \Phi \cup \{0\} \mid d_i = 0 \text{ for some } i \text{ such that } \delta_i = 1\} \subseteq \{ \underline d \in \mathbb Z^n \mid - \delta \leq \underline d \leq \delta \}$.
+
+For $(6)$, embed the set of roots into the set of roots of the Euclidean extension and apply $(5)$.
+\end{proof}
+
+\begin{example}
+Let $Q$ be the Kronecker quiver $1 {}^\leftarrow_\leftarrow 2$. Then $\delta = (1,1)$  
+\end{example}
+
+\begin{definition}
+$V \in \Rep_\mathbb{F} Q$ is a \defterm{brick} if $\End_Q(V) = \mathbb{F}$
+\end{definition}
+
+\begin{note}
+ A brick is always an indecomposable.
+\end{note}
+
+\begin{lemma}
+For indecomposable representations $V,W \in \Rep_\mathbb{F}(Q)$ with $\Ext_Q(V,W) = 0$, any nonzero map $\theta: V \to W$ is either injective or surjective.
+\end{lemma}
+
+\begin{remark}
+This idea is foundational to a lot of things in tilting theory.
+\end{remark} 
+
+\begin{proof}
+The map $\theta : V \to W$ gives rise to short exact sequences
+
+\begin{equation}\label{eqn:eqn1}
+0 \to \ker \theta \to V \to \im \theta \to 0
+\end{equation}
+
+\begin{equation}
+0 \to \im \theta \to W \to \coker \theta \to 0
+\end{equation}
+
+Apply $\Hom(\coker \theta, -)$ to $(\ast)$. We get a long exact sequence whose tail is an epimorphism $\Ext(\coker \theta, V) \twoheadrightarrow \Ext(\coker \theta, \im \theta)$. So there is a commutative diagram
+
+\begin{tikzcd}
+0 \ar[r] & V \ar[r] \ar[d] & X \ar[r] \ar[d] & \coker \theta \ar[r] \ar[d] & 0 \\
+0 \ar[r] & \im \theta \ar[r] & W \ar[r] & \coker \theta \ar[r] & 0
+\end{tikzcd}
+
+Since the left hand square is a pushout,  we get a short exact sequence
+
+\begin{equation*}
+0 \to V \to X \oplus \im \theta \to W \to 0
+\end{equation*}
+
+This is an extension of $W$ by $V$. By assumption, it splits. Since $V$ and $W$ are indecomposable and $\im \theta \neq 0$, it must be that either $V$ or $W$ is a summand of $\im \theta$ (since the decomposition into indecomposables is unique). If $\theta$ is neither injective or surjective, then by comparing dimensions we get a contradiction.
+\end{proof}
+
+\begin{lemma}
+If $V \in \rep_\mathbb{F} Q$ is indecomposable, but not a brick, then $V$ has a subrepresentation which is a brick and has self-extensions (i.e. is not rigid). Dually, there is a quotient of $V$ which is a brick and not rigid.
+\end{lemma} 
+
+\begin{proof}
+Since $V$ is not a brick, there exists a nonisomorphism, nonzero $\theta \in \End_Q(V)$. Choose such a $\theta$ so that $\im \theta$ has minimal dimension. Then $\theta(\im \theta)$ must be  proper subrepresentation of $\im \theta$ -- otherwise $\im \theta$ would be a summand of $V$. Since $\theta(\im \theta) = \im \theta^2$, by minimality of $\dim \im \theta$, this implies that $\theta(\im \theta) = 0$, i.e. $\im \theta \subseteq \ker \theta$, i.e. $\theta^2 = 0$. Consider a decomposition $\ker \theta = \oplus_i K_i$ into indecomposables. Pick a $j$ such that $\varphi: \im \theta \to \ker \theta \to K_j$ is nonzero. By minimality of $\im \theta$, $\varphi$ is injective. Now the bottom row of the following pushout diagram cannot split since $V$ is indecomposable:
+
+\begin{tikzcd}
+0 \ar[r] & \ker \theta \ar[r] \ar[d] & V \ar[r] \ar[d] & \im \theta \ar[r] \ar[d,equal] & 0 \\
+0 \ar[r] & K_j \ar[r] & W \ar[r] & \im \theta \ar[r] & 0
+\end{tikzcd}
+
+That means that $\Ext(\im \theta, K_j) \neq 0$. Applying $\Ext(-,K_j)$ to the injection $\varphi$, we have a surjective map $\Ext(K_j, K_j) \twoheadrightarrow \Ext(\im \theta, K_j)$, and so $\Ext(K_j, K_J) \neq 0$, and $K_j$ is a proper subrepresentation of $V$.
+
+If $K_j$ is not a brick, then we can iterate the construction. The yields a chain of proper subrepresentations of $V$, which must terminate, since $V$ was finite-dimensional.
+\end{proof}
+
+\begin{remark}
+If $\mathbb{F}$ is algebraically closed, this also holds for infinite-dimensional representations, but we will not need this.
+\end{remark} 
+
+\begin{definition}
+Let $Q$ be a quiver with no vertex loops. Then a vector $\underline d \in \mathbb Z_{\geq 0}^{Q_0}$ with $q(\underline d) = 1$ is called a \defterm{positive real root}.
+\end{definition} 
+
+\begin{lemma}
+Let $V$ be a brick and $\underline{\dim} V$ is a positive real root. Then $V$ is rigid.
+\end{lemma} 
+
+\begin{terminology}
+In this case, the vector $\underline\dim V$ is called a \defterm{real Schur root}. Classifying real Schur roots is a large open question, although an inductive description is known for all quivers.
+\end{terminology} 
+
+\begin{proof}
+$1 = q(\underline \dim V) = \langle V, V\rangle = \dim \End_Q(V) - \dim \Ext_Q(V,V) = 1 - \dim \Ext_Q(V,V)$.
+\end{proof} 
+
+\begin{lemma}\label{lem:dynkin-brick-root}
+ If $Q$ is Dynkin, then every indecomposable representation $V$ of $Q$ is a brick with $\underline \dim V$ a positive real root.
+\end{lemma}
+
+\begin{example}
+Let $Q$ be the 2-Kronecker quiver,
+\begin{tikzcd}
+\mathbb{F} & \ar[l,shift left,"\mu"] \ar[l,shift right,"\lambda",swap] \mathbb{F}
+\end{tikzcd}. Any representation $\delta_{[\lambda,\mu]}$ is a brick for any $[\lambda : \mu ] \in \mathbb P^1$, but $\Ext_Q(\delta_{[\lambda,\mu]}, \delta_{[\lambda,\mu]}) \cong \mathbb{F}$, so $(1,1)$ is \emph{not} a positive real root.
+\end{example} 
+
+\begin{proof}
+If $V$ was not a brick, there would exist a brick $0 \neq U \subsetneq V$ with $\Ext(U,U) \neq 0$. But then $0 < q(\underline \dim U) = \dim \End_Q(U,U) - \dim \Ext_Q(U,U) = 1 - (>0) \leq 0$, a contradiction. The first, strict inequality, uses positive definiteness of $q$ since $Q$ is Dynkin.
+
+It follows that $0 < q(\underline \dim V) = 1 - \dim \Ext_Q(V,V) = 1$ and so $\underline \dim V$ is a positive real root.
+\end{proof}
+
+\begin{corollary}\label{cor:dynkin-ind-dim}
+For a Dynkin quiver, any two indecomposable representations with the same dimension vector are isomorphic.
+\end{corollary}
+
+\begin{proof}
+By the results above, each will have a dense orbit in the moduli space of representations of the given dimension vector.
+\end{proof}
+
+\begin{lemma}
+Suppose there is a non-split exact sequence $0 \to U \to V \to W \to 0$ $(\ast)$.
+
+Then inside $M_{\underline \dim V} (Q)$, we have $\mathcal O_{W \oplus U} \subseteq \overline {\mathcal{O}}_V \setminus \mathcal O_V$.
+\end{lemma}
+
+\begin{proof}
+Recall the map defining the Ext group: $\oplus_{\alpha \in Q_1} \Hom_{\mathbb F} (W_{s(\alpha)} U_{t(\alpha)}) \twoheadrightarrow \Ext_Q(W,U)$ is surjective. That is, by decomposing $V_i = W_i \oplus U_i$, we may write $V_\alpha = 1 \oplus f_\alpha$ where $f_\alpha: W_i \to U_j$.
+
+For $\lambda \in \mathbb F^\times$, define $g_\lambda \in GL_{\underline \dim V} (\mathbb F) = \prod_{I \in Q_0} GL_{\dim V}(\mathbb F)$ by $g_{\lambda, i} = I_{W_i} \oplus \lambda I_{U_i}$, we have $(g_\lambda \cdot V)_\alpha = 1 +\lambda f_\alpha$. It follows that $\overline {\mathcal{O}}_V$ contains the representation at $\lambda=0$, which is just $W \oplus U$.
+
+To see that $V \not \cong W \oplus U$, apply the functor $\Hom_Q(-,U)$ to the sequence $(\ast)$ to get the long exact sequence $0 \to \Hom_Q(W,U) \to \Hom_Q(V,U) \to \Hom_Q(U,U) \overset \delta \to \Ext_Q(W,U)$. Recall that $\delta$ is defined by pushing out our exact sequence along the map $U \to U$; in particular $\delta(I_U)$ is the class of the extension $(\ast)$ which is nonzero by assumption. Therefore $\dim \Hom(V,U) < \dim \Hom(W,U) + \dim \Hom(U,U)$, and therefore $V \not \cong W \oplus U$.
+\end{proof}
+
+\begin{corollary}
+If $\mathcal O){W \oplus U} \subseteq M_{\underline d}(Q)$ is an orbit of maximal dimension, then $\Ext_Q(W,U) = 0$.
+\end{corollary}
+
+\begin{proof} Otherwise, there exists a non-split sequence as in $(\ast)$, and hence $\mathcal O_{W \oplus U} \subseteq \overline {\mathcal O}_V \setminus \mathcal O_V$ and so $\dim \mathcal O_{W \oplus V} < \dim \mathcal O_V$.
+\end{proof}
+
+\begin{corollary}\label{cor:dynkin-root-dim-ind}
+For a Dynkin quiver $Q$ and a positive real root $\underline d \in \Phi_+$, there exists an indecomposable representation of $Q$ with dimension vector $\underline d$.
+\end{corollary}
+
+\begin{proof}
+Consider $\mathcal O_V \subseteq M_{\underline d}(Q)$ of maximal dimension. If $V \cong W \oplus U$, then $\Ext_Q(W,U) = \Ext_Q(U,W) = 0$. But then $1 = q(\underline d) = \langle \underline d, \underline d \rangle = \langle W \oplus U, W \oplus U \rangle = q(\underline \dim W) + q(\underline \dim U) + 0 + 0 \geq 2$, a contradiction.
+\end{proof} 
+
+\begin{theorem}
+If $Q$ is a Dynkin quiver, then the map $V \mapsto \underline \dim V$ gives a bijection between indecomposable representations of $Q$ and positive real roots for the quadratic form.
+\end{theorem}
+
+\begin{proof}
+Lemma \ref{lem:dynkin-brick-root} gives the map; Corollary \ref{cor:dynkin-ind-dim} gives injectivity, and Corollary \ref{cor:dynkin-root-dim-ind} gives surjectivity.
+\end{proof}
+
+\begin{theorem}
+A connected quiver $Q$ has finitely many isomorphism classes of indecomposable representations if and only if $Q$ is Dynkin.
+\end{theorem}
+
+\begin{proof}
+We've seen that if $Q$ is Dynkin, then the indecomposable representations are in bijection with the set of postitive real roots, which is finite.
+
+Conversely, recall from earlier that If $q(\underline d) \leq 0$, then there are infinitely many orbits in $M_{\underline d}(Q)$. But if there are finitely many indecomposables, then there are finitely orbits in $M_{\underline d}(Q)$. And only Dynkin quivers have positive definite $q$, even when restricted to nonnegative $\underline d$.
+\end{proof}
+
+
+
 
   \section{Auslander-Reiten Theory}
 
+Let $Q$ be a quiver with no vertex loops. For a vertex $i$, write $\sigma_i Q$ for the quiver obtained from $Q$ by reversing all arrows incident to vertex $i$. For each $\alpha \in Q_1$ with $s(\alpha) = i$ or $t(\alpha) = i$, there is a new arrow $\bar \alpha \in (\sigma_i Q)_1$ with $s(\bar \alpha) = t(\alpha)$ and $t(\bar \alpha) = s(\alpha)$. Q vertex $i \in Q_0$ is a \defterm{source} (resp. \defterm{sink}) if there does not exist an arrow $\alpha \in Q_1$ with $t(\alpha) = i$ (resp. $s(\alpha) = i$).
+
+Definition. Let $i \in Q_0$ be a source of $Q$ and $V \in \Rep_{\mathbb F} Q$ Define a representation $\Sigma_i V \in \Rep_{\mathbb F} \sigma_i Q$ as follows.
+
+$(\Sigma_i V)_j = V_j$ for $j \neq i$
+
+$(\Sigma V)_\alpha = V_\alpha$ when $s(\alpha) =\neq i$
+
+$(\Sigma_i V)_i = \coker(\oplus_{\alpha \in Q_1,s(\alpha) = i} V_\alpha: V_i \to \oplus_{\alpha \in Q_1, s(\alpha) = i} V_{t(\alpha)})$
+
+For $\alpha \in Q_1$ with $s(\alpha) = i$, the map $(\Sigma_i V)_{\bar \alpha}$ is given by $\pi \iota_{t(\alpha)}$ where $\pi: \oplus_{\alpha \in Q_1, s(\alpha) = i} V_{t(\alpha)} \to (\Sigma_i V)_i$ is the natrual projection and $\iota_{t(\alpha)}: V_{t(\alpha)} \to \oplus_{\alpha \in Q_1,s(\alpha) = i} V_{t(\alpha)}$ is the inclusion of the $t(\alpha)$ component.
+
+\begin{example}
+Let $Q = 1 \leftarrow 2$ Then $\sigma_2 Q = 1 \to 2$. Recall that $S_1 = \mathbb F \leftarrow 0$. Then $\Sigma_1(S_1) = \mathbb F \overset 1 \to \mathbb F$. Recall that $S_2 = 0 \leftarrow \mathbb F$. Then $\Sigma_2(S_2) = 0 \to 0$. Recall that $P_2 = \mathbb F \leftarrow \mathbb F$. Then $\Sigma_2(P_2) = \mathbb F \to 0$.
+\end{example} 
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Hall Algebras}
