@@ -1020,6 +1020,33 @@ Let $Q = 1 \leftarrow 2$ Then $\sigma_2 Q = 1 \to 2$. Recall that $S_1 = \mathbb
          \[\{(C,A): A\subseteq Y, C\subseteq Y/A, A\cong U, C\cong W, (Y/A)/C\cong X\}.\]
          But observe that choosing $C\subseteq Y/A$ is the same as choosing intermediate representation $A\subseteq B\subseteq Y$, where the bijection is given by $C=B/A$. Finally, $(Y/A)/C=(Y/A)/(B/A)=Y/B$, so the conditions on the sets are the same and so this bijection induces a bijection of the sets above.
     \end{proof}
+    
+    \subsection{Combinatorics of Finite Linear Algebra}
+    Let $Q$ be a quiver with a single vertex. (More generally, fix attention on a single vertex of an arbitrary quiver.) Let $S\in \rep_{\mathbb{F}}Q$ be the unique simple representation. Our goal is to compute the multiplication in $\mathcal{H}_Q$ completely, i.e. understand $[S]^n$.
+    
+    \bigskip\noindent
+    \textbf{Observations}: 
+        \begin{enumerate}
+            \item \begin{align*} |\text{Aut}(S^n)|&=|\text{GL}_n(\mathbb{F}_q)|\\
+            &=(q^n-1)(q^n-q)(q^n-q^2)\cdots(q^n-q^{n-1})\\
+            &= q^{\binom{n}{2}}(q-1)^n[n]^!_q
+            \end{align*} where $[k]_q=q^{k-1}+q^{k-2}+\ldots+q+1$ and $[n]_q^! = [n]_q\cdot [n-1]_q\cdots [2]_q\cdot [1]_q$.
+            \item \begin{align*} F_{S^{n-k}S^k}^{S^n}&=|\{E\subseteq S^n : E\cong S^k, S^n/E\cong S^{n-k}\}|\\
+            &=|\text{Gr}_k(\mathbb{F}_q^n)|\\
+            &= \frac{(q^n-1)(q^n-q)\cdots(q^n-q^{k-1})}{|\text{Aut}(S^k)|}\\
+            &= \frac{q^{\binom{k}{2}}(q-1)^k[n]_q[n-1]_q \cdots [n-k+1]_q}{q^{\binom{k}{2}} (q-1)^k[k]_q^!}\\
+            &= \frac{[n]_q^!}{[k]_q^![n-k]_q^!}=:\begin{bmatrix}n\\ k\end{bmatrix}_q
+            \end{align*}
+            We call $\begin{bmatrix}n\\ k\end{bmatrix}_q$ the \textbf{quantum binomial coefficient}.
+        \end{enumerate}
+    
+    \begin{lemma}
+        Let $X$ and $Y$ be noncommuting variables with $YX=t^2XY$ for a formal variable $t$. Then \[(X+Y)^n=\sum_{k=0}^n t^{-k(n-k)}\begin{bmatrix}n\\ k\end{bmatrix}_{t^2} X^kY^{n-k}.\]  
+    \end{lemma}
+    
+    \begin{proof}
+        Observe that \[\begin{bmatrix}n\\ k\end{bmatrix}_q=q^{n-k}\begin{bmatrix}n-1\\ k-1\end{bmatrix}_q+\begin{bmatrix}n-1\\ k\end{bmatrix}_q = \begin{bmatrix}n-1\\ k-1\end{bmatrix}_q+q^k\begin{bmatrix}n-1\\ k\end{bmatrix}_q\] and then work by induction.
+    \end{proof}
 
   \section{Bialgebra Structure}
 
