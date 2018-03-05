@@ -1142,7 +1142,57 @@ Let \[(n)_t=t^{-n+1}+t^{-n+3}+\ldots+t^{n-3}+t^{n-1}.\] Then
     
     
 
-  \section{Bialgebra Structure}
+     %Kathryn Friday Here
+
+\section{Bialgebra Structure}
+    %Or Here
+
+\begin{definition} Define a map $\Delta : \mathcal{H}_Q \rightarrow \mathcal{H}_Q \times \mathcal{H}_Q$ by $$\Delta([V])=\sum_{[U],[W]} t^{<W,U>} F^V_{W,U} \frac{a_u a_w}{a_v} [W][U]=\sum_{[U],[W]} t^{<W,U>} P^V_{W,U} \frac{1}{a_v} [W][U]$$ and a map $\epsilon : \mathcal{H}_Q \rightarrow \mathbb{C}$ by $$\epsilon ([V]) =   \begin{Bmatrix} 1 & if & V=0 \\ 0 & else & \end{Bmatrix} $$
+\end{definition}
+
+\begin{prop}
+$(\mathcal{H}_Q, \epsilon, \Delta)$ is a (counital coassociative) coalgebra. 
+\end{prop}
+
+\begin{proof}
+The identities $(\epsilon \otimes 1) \Delta ([V]) = [V] = (1 \otimes \epsilon) \Delta ([V])$ are clear because $<V,0>=0=<0,V>$. Thus we compute 
+\begin{align*} 
+ (\Delta \otimes 1)\Delta ([Y])&=  \sum_{[U],[T]} t^{<T,U>} F^Y_{T,U} \frac{a_T a_U}{a_Y}\Delta( [T] )\otimes [U] \\ 
+ &=  \sum_{[U],[T],[W],[X]} t^{<T,U>+<X,W>} F^Y_{X,V}  F^V_{W,U} \frac{a_U a_W a_X}{a_Y}[X] \otimes [W] \otimes [U] 
+\end{align*}
+and 
+\begin{align*} 
+ (1 \otimes \Delta)\Delta ([Y])&=  \sum_{[V],[X]} t^{<X,V>} F^Y_{X,V} \frac{a_X a_V}{a_Y} [X] \otimes \Delta( [U]) \\ 
+ &=  \sum_{[U],[T],[W],[X]} t^{<X,Y>+<W,U>} F^Y_{X,V}  F^V_{W,U} \frac{a_U a_W a_X}{a_Y}[X] \otimes [W] \otimes [U] 
+\end{align*}
+Note that $<T,U>=<X+W,U>$ and $<X,V>=<X,W+U>$.
+So we need that $$\sum_{[T]} F^Y_{T,U} F^T_{X,W} = \sum_{[V]} F^Y_{X,V} F^V_{W,U}$$ but this is exactly the identity appearing in the associativity of the multiplication on $\mathcal{H}_Q$. \\ So $(\Delta \otimes 1)\Delta = (1 \otimes \Delta)\Delta.$
+\end{proof}
+
+We now can ask if the multiplication and comultiplication on $\mathcal{H}_Q$ are compatible. 
+
+\begin{example}
+Q: $1 \leftarrow 2$. Take $W=S_2$, $U=S_1$, $P_2= \mathbb{F} \xleftarrow{id} \mathbb{F}$.\\
+Then 
+
+\begin{align*} 
+[S_2][S_1] &= t^{-1}([P_2]+[S_1 \oplus S_2]) \\
+\Delta ([S_2]) &= 1 \otimes [S_2]+ [S_2] \otimes 1 \text{  (primitive)} \\
+\Delta ([S_1]) &= 1 \otimes [S_1]+ [S_1] \otimes 1 \\
+\Delta ([P_2]) &= 1 \otimes [P_2]+ [P_2] \otimes 1 + t^{-1} (q-1) [S_2] \otimes [S_1]  =  1 \otimes [P_2]+ [P_2] \otimes 1 + (t-t^{-1} ) [S_2] \otimes [S_1]\\
+\Delta ([S_1\oplus S_2]) &=1 \otimes [S_1\oplus S_2] + [S_1\oplus S_2] \otimes 1 + [S_1] \otimes [S_2]  + t^{-1} [S_2] \otimes [S_1] \\
+\Delta ([S_2][S_1]) &=t^{-1}(1 \otimes [P_2] + [P_2] \otimes 1 + [S_1\oplus S_2] \otimes 1  +  1\otimes  [S_1\oplus S_2] + [S_1] \otimes [S_2]) +[S_2] \otimes [S_1] \\
+\Delta ([S_2])\Delta([S_1]) &=t^{-1}( [P_2] +[S_1\oplus S_2]) \otimes 1 + 1 \otimes t^{-1} ( [P_2] +[S_1\oplus S_2]) +  [S_2] \otimes [S_1] +[S_1] \otimes [S_2] 
+\end{align*}
+So we can see that $\Delta ([W][U]) \neq \Delta([W])\Delta([U])$
+\end{example}
+
+We have a solution to this problem. We twist the algebra structure on $\mathcal{H}_Q \otimes \mathcal{H}_Q$ using the pairing $(W,U)=<W,U>+<U,W>$. 
+$$([W]\otimes [U])([W']\otimes[U'])=t^{([U],[W'])}[W][W'] \otimes [U][U']$$
+
+\begin{theorem}[Green]
+Considering $\mathcal{H}_Q \otimes \mathcal{H}_Q$ with this twisted multiplication, the map $\Delta: \mathcal{H}_Q  \rightarrow \mathcal{H}_Q \otimes \mathcal{H}_Q$ is an algebra homomorphism. 
+\end{theorem}
 
   \section{Relation to Symmetric Functions}
 
