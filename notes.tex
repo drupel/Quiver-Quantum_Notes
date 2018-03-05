@@ -1039,6 +1039,106 @@ Let $Q = 1 \leftarrow 2$ Then $\sigma_2 Q = 1 \to 2$. Recall that $S_1 = \mathbb
             \end{align*}
             We call $\begin{bmatrix}n\\ k\end{bmatrix}_q$ the \textbf{quantum binomial coefficient}.
         \end{enumerate}
+	
+Let \[(n)_t=t^{-n+1}+t^{-n+3}+\ldots+t^{n-3}+t^{n-1}.\] Then 
+    \begin{align*}
+        \left[S^{n-k}\right]\left[S^k\right]&=t^{k(n-k)}\begin{bmatrix}n\\ k\end{bmatrix}_q\left[S^n\right]\\
+        [S]^n &= t^{\binom{n}{2}}[n]_q^!\left[S^n\right]\\
+        [S]^{(n)} &= \frac{[S]^n}{(n)_t^!}=t^{n(n-1)}\left[S^n\right].
+    \end{align*}
+    
+     \begin{lemma}
+        Let $X$ and $Y$ be noncommuting variables with $YX=t^2XY$. Then \begin{align*}
+            (X+Y)^n&=\sum_{k=0}^n \begin{bmatrix}n\\ k\end{bmatrix}_q X^kY^{n-k}\\
+            &= \sum_{k=0}^n t^{-k(n-k)}\begin{bmatrix}n\\ k\end{bmatrix}_q t^{k(n-k)}X^kY^{n-k}\\
+            &= \sum_{k=0}^n \binom{n}{k}_t \  t^{k(n-k)}X^kY^{n-k}
+            \end{align*}
+    \end{lemma}
+    
+    \begin{proof}
+        Observe that \[\begin{bmatrix}n\\ k\end{bmatrix}_q=q^{n-k}\begin{bmatrix}n-1\\ k-1\end{bmatrix}_q+\begin{bmatrix}n-1\\ k\end{bmatrix}_q = \begin{bmatrix}n-1\\ k-1\end{bmatrix}_q+q^k\begin{bmatrix}n-1\\ k\end{bmatrix}_q\] and then work by induction.
+    \end{proof}
+    
+    \begin{corollary}
+        \[\sum_{k=0}^n (-1)^k t^{k(k-1)}\begin{bmatrix}n\\ k\end{bmatrix}_q=0.\]
+    \end{corollary}
+    
+    \begin{proof}
+        \[(X+Y)^n=\left[(1+XY^{-1})Y\right]^n=(1+XY^{-1})(1+t^2XY^{-1})\cdots(1+t^{2(n-1)}XY^{-1})Y^n\]
+        and \[(XY^{-1})^k=t^{-k(k-1)}X^kY^{-k}.\] So for $Z=XY^{-1}$ we have 
+        \[\prod_{k=0}^{n-1} (t+t^{2k}Z)=\sum_{k=0}^nt^{k(k-1}\begin{bmatrix}n\\ k\end{bmatrix}_qZ^k.\]
+        Take $Z=-1$ to get \[0=\sum_{k=0}^n (-1)^k t^{k(k-1)}\begin{bmatrix}n\\ k\end{bmatrix}_q.\]
+    \end{proof}
+    
+    \begin{example}[Rank 2]
+        Consider the $n$-Kronecker quiver \[ Q= \begin{tikzcd}
+			1  &   \arrow[l, "\alpha_1"',yshift=1.5ex]  \arrow[l, phantom, "{\vdots}"',yshift=.5ex]     \arrow[l,"\alpha_n",yshift=-1.5ex] 2
+			\end{tikzcd} \]
+    \end{example}
+    
+    \begin{lemma}\label{(n+1,1)}
+		    Any representation of $Q$ with dimension vector $(n+1,1)$ or $(1,n+1)$ is decomposable.
+	\end{lemma}
+	
+	\begin{proof}
+	    Let $V=(V_i,V_\alpha)$ be a representation of $Q$ with $\underline{\dim}V=(n+1,1)$. The total map \[\sum_{i=1}^nV_{\alpha_i}:\bigoplus_{i=1}^nV_2\to V_1\] has at most an $n$-dimensional image and so $V$ admits a summand isomorphic to $S_1$. The other case is dual.
+	\end{proof}
+    
+    \begin{lemma}
+        Let $V$ be an indecomposable representation of $Q$ with $\underline{\dim}V=(a,1)$. Then for any $s\geq 0$ we have $F_{S_1^s V}^{S_1^s\oplus V}=1.$ Similarly, if $\underline{\dim}V=(1,a)$, then  $F_{V S_2^s}^{V\oplus S_2^s}=1$ for any $s\geq 0$.
+    \end{lemma}
+    
+    \begin{proof}
+        Any subrepresentation $E\subseteq S_1^s\oplus V$ with $E\cong V$ gives an exact sequence 
+        \[\begin{tikzcd}
+            0\arrow{r} & \mathbb{F} \arrow[d,xshift=1.6ex]  \arrow[d, phantom, "{\hdots}"']     \arrow[d,xshift=-1.6ex]\arrow{r}{\id} & \mathbb{F}\oplus0 \arrow[d,xshift=-1.5ex] 
+            \arrow[d, phantom, "{\oplus}"'] \arrow[d, phantom, "{..}"',xshift=-2ex]     \arrow[d,xshift=-2.6ex] \arrow[d,xshift=1.5ex]  \arrow[d, phantom, "{..}"',xshift=2ex]     \arrow[d,xshift=2.6ex] \arrow{r} & 0 \arrow{d}\arrow{r} & 0 \\
+            0\arrow{r} & \mathbb{F}^a \arrow{r}{f} & \mathbb{F}^a\oplus \mathbb{F}^s \arrow{r} & \mathbb{F}^s \arrow{r} & 0
+        \end{tikzcd}\]
+        where the left hand vertical morphisms are just the restrictions of the middle vertical morphisms. In particular, the image of $f$ inside $\mathbb{F}^a\oplus \mathbb{F}^s$ is uniquely determined.
+    \end{proof}
+    
+    \begin{corollary}
+        For $V$ indecomposable with 
+        \begin{enumerate}
+            \item ${\underline \dim V} = (a,1)$, we have $\left[S_1^s \right][V]=t^{sa}\left[S_1^s\oplus V\right]$
+            \item ${\underline \dim V} = (1,a)$, we have $[V]\left[S_2^s \right]=t^{sa}\left[V\oplus S_2^s\right]$.
+        \end{enumerate}
+    \end{corollary}
+    
+    \begin{proof}
+        $\left<S_1^s,V\right>=sa$ or $\left<V,S_2^s\right>=sa$.
+    \end{proof}
+    
+    \begin{lemma}
+        For any $r,s\geq 0$, \[\left[S_2\right]\left[S_1^s\right]=\sum_{\substack{[V]\\ \underline{\dim}V=(s,1)}}t^{-ns}[V]\] and \[\left[S_2^s\right]\left[S_1\right]=\sum_{\substack{[V]\\ \underline{\dim}V=(1,r)}}t^{-nr}[V].\]
+    \end{lemma}
+    
+    \begin{proof}
+        $\left<S_2,S_1^s\right>=-ns$ and for any $V$ with $\underline{\dim}V=(s,1)$, there exists a unique subrepresentation isomorphic to $S_2$.
+    \end{proof}
+    
+    For $a\geq 0$, write \[X_a = \sum_{\substack{V\ \text{indecomposable} \\ \underline{\dim}V=(a,1)}}[V]\] and \[Y_a = \sum_{\substack{V\ \text{indecomposable} \\ \underline{\dim}V=(1,a)}}[V].\] By \eqref{(n+1,1)}, these are zero for $a>n$.
+    
+    \begin{corollary}
+        For any $r,s\geq 0$, we have 
+        \[\left[S_1^r\right]\left[S_2\right]\left[S_1^s\right]  = \sum_{a=0}^s t^{-ns+(r-a)(s-a)+rs}\begin{bmatrix}r+s-a\\ r\end{bmatrix}_q \left[S_1^{r+s-a}\right]X_a \]
+            and \[\left[S_2^r\right]\left[S_1\right]\left[S_2^s\right] & = \sum_{a=0}^r t^{-nr+(r-a)(s-a)+rs}\begin{bmatrix}r+s-a\\ s\end{bmatrix}_q Y_a\left[S_2^{r+s-a}\right].\]
+    \end{corollary}
+   
+    Let $Q$ be a quiver and fix $i,j\in Q_0$ so that these vertices are joined by $n$ arrows from $j$ to $i$. Then
+    \begin{align*}
+       \left[S_i\right]^k & =  t^\binom{k}{2}[k]_q^!\left[S_i^k\right]\\
+       \left[S_i^k\right]\left[S_i^l\right] & =  t^{lk}\begin{bmatrix}l+k\\ k\end{bmatrix}_q\left[S_i^{k+l}\right]
+    \end{align*}
+    If $\dim V_i=a$, $\dim V_j=1$, and $\dim V_k=0$ for $k\neq i,j$, then 
+    \[\left[S_i^r\right]\left[V\right] & =  t^{ra}\left[S_i^r\oplus V\right].\]
+    If $\dim V_i=s$, $\dim V_j=1$, and $\dim V_k=0$ for $k\neq i,j$, then 
+    \[\left[S_j\right]\left[S_i^r\right] & =  \sum_{[V]}t^{-nr}\left[V\right].\]
+   
+    \begin{theorem}[Ringel]
+        Inside $\mathcal{H}_Q$, we have \[\sum_{r=0}^{n+1}(-1)^r[S_i]^{(r)}[S_j][S_i]^{(n+1-r)}=0\] and \[\sum_{r=0}^{n+1}(-1)^r[S_j]^{(r)}[S_i][S_j]^{(n+1-r)}=0.\]
+    \end{theorem}
     
     
 
