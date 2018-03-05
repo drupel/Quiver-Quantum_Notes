@@ -1142,10 +1142,69 @@ Let \[(n)_t=t^{-n+1}+t^{-n+3}+\ldots+t^{n-3}+t^{n-1}.\] Then
     
     
 
-     %Kathryn Friday Here
+         \begin{proof}
+        \begin{align*}
+            \sum_{r=0}^{n+1}(-1)^r & t^{r(r-1)+(n+1-r)(n-r)}[S_i^r][S_j][S_i^{n+1-r}]\\
+            &=\sum_{r=0}^{n+1}(-1)^rt^{r(r-1)+(n+1-r)(n-r)}\sum_{\substack{[V]\\ \dim V_i = n+1-r \\ \dim V_j =1\\ \dim V_k=0 \ k\neq i,j}}t^{-n(n+1-r)}[S_i^r][V] \\
+            &=\sum_{r=0}^{n+1}(-1)^rt^{r(r-1)+(n+1-r)(n-r)}\sum_{a=0}^{n+1-r}t^{-n(n+1-r)}t^{-a(n+1-r-a)}[S_i^r][S_i^{n+1-r-a}]X_a \\
+            &=\sum_{r=0}^{n+1}(-1)^rt^{r(r-1)+(n+1-r)(n-r)}\sum_{a=0}^{n+1-r}t^{-n(n+1-r)}t^{-a(n+1-r-a)}t^{r(n+1-r-a)}\begin{bmatrix}n+1-a\\ r\end{bmatrix}_q [S_i^{n+1-a}]X_a\\
+            &=\sum_{a=0}^{n+1}\left(\sum_{r=0}^{n+1-a}(-1)^rt^{r(r-1)}\begin{bmatrix}n+1-a\\ r\end{bmatrix}_q\right) t^{-a(n+1-a)}[S_i^{n+1-a}]X_a\\
+            &=0
+        \end{align*}   
+        where \[X_a=\sum_{\substack{W indec.\\ \dim W_i=q\\\dim W_j=1}}[W].\] The proof of the other is similar.
+    \end{proof}
+
+    These are called the \textbf{quantum Serre relations}.
+    
+    \begin{definition}
+        Let $\mathcal{C}_Q\subseteq \mathcal{H}_Q$ denote the \textbf{composition subalgebra} generated over $\mathbb{Z}[t^{\pm 1}]$ by the divided powers $[S_i]^{(r)}$ for $i\in Q_0$ and $r\geq 0$.
+    \end{definition}
+    
+    \underline{Goal}: Show that the quantum Serre relations determine the composition subalgebra.
+    
+    \subsection{Coalgebras}
+        Recall: An associative and unital \textbf{algebra} (over $\mathbb{C}$) is a vector space together with linear maps $\eta:\mathbb{C}\to A$ (unit) and $\mu:A \otimes A\to A$ (multiplication) such that the following diagrams commute:
+        \[\begin{tikzcd}
+            A\otimes A\otimes A \arrow{r}{\mu\otimes 1}\arrow{d}{1\otimes\mu} & A\otimes A \arrow{d}{\mu} & & A\cong \mathbb{C}\otimes A \arrow{d}{1\otimes\eta}\arrow{r}{\eta\otimes 1}\arrow{dr}{\id}& A\otimes A \arrow{d}{\mu}
+            \\ A\otimes A \arrow{r}{\mu}& A & & A\otimes A\arrow{r}{\mu} & A
+        \end{tikzcd}\]
+        A homomorphism of algebras is a map $\phi:A\to A'$ such that the following diagrams commute:
+        \[\begin{tikzcd}
+            &A \arrow{dd}{\phi}
+            & & A\otimes A \arrow{d}{\phi\otimes\phi}\arrow{r}{\mu}& A \arrow{d}{\phi}
+            \\ \mathbb{C}\arrow{ur}{\eta}\arrow{dr}{\eta'}&
+            & & A'\otimes A'\arrow{r}{\mu'} & A'\\
+            &A'
+        \end{tikzcd}\]
+        The dual of a finite dimensional algebra is a \textbf{coalgebra}: a vector space $C$ together with linear maps $\epsilon:C\to\mathbb{C}$ (counit) and $\Delta:C\to C\otimes C$ (comultiplication) such that the following diagrams commute:
+        \[\begin{tikzcd}
+            C \arrow{r}{\Delta}\arrow{d}{\Delta} & C\otimes C \arrow{d}{\Delta\otimes 1} 
+            & & C \arrow{dr}{\id} \arrow{r}{\Delta}\arrow{d}{\Delta} & C\otimes C \arrow{d}{\epsilon\otimes 1}
+            \\ C\otimes C \arrow{r}{1\otimes\Delta}& C\otimes C\otimes C 
+            & & C\otimes C\arrow{r}{1\otimes\epsilon} & C\cong \mathbb{C}\otimes C\cong C\otimes\mathbb{C}
+        \end{tikzcd}\]
+        A homomorphism of coalgebras is a map $\psi:C\to C'$ such that the following diagrams commute:
+        \[\begin{tikzcd}
+            C\arrow{dr}{\epsilon}\arrow{dd}{\psi}& 
+            & & C \arrow{d}{\psi}\arrow{r}{\Delta}& C\otimes C \arrow{d}{\psi\otimes\psi}
+            \\ &\mathbb{C}
+            & & C'\arrow{r}{\Delta'} & C'\otimes C'\\
+            C'\arrow{ur}{\epsilon'}&
+        \end{tikzcd}\]
+        
+        \begin{exercise}
+            Let $B$ be a vector space together with linear maps $\eta:\mathbb{C}\to B$, $\mu:B\otimes B\to B$, $\epsilon:B\to\mathbb{C}$, and $\Delta:B\toB\otimes B$ such that $(B,\eta,\mu)$ is an algebra and $(B,\epsilon,\Delta)$ is a coalgebra. Consider $B\otimes B$ as an algebra with multiplication $\tilde{\mu}:(B\otimes B)\otimes (B\otimes B)\to B\otimes B $ given by $(\mu\otimes \mu)\circ(1 \otimes \tau\otimes 1)$ where $\tau:B\otimes B\to B\otimes B$ interchanges factors, and as a coalgebra with comultiplication $\Delta\otimes\Delta:B\otimes B \to (B\otimes B)\otimes(B\otimes B)$. Show that $\mu$ is a coalgebra morphism if and only if $\Delta$ is an algebra morphism. 
+        \end{exercise}
+        
+        \begin{definition}
+            In the situation above, we call $(B,\eta,\mu,\epsilon,\Delta)$ a \textbf{bialgebra} if the following diagram commutes:
+            \[\begin{tikzcd}
+            B\otimes B && \arrow{ll}{\Delta}B\arrow{dr}{\epsilon} && B\otimes B \arrow{ll}{\mu}\arrow{dl}{\epsilon\otimes\epsilon} \\
+            & \mathbb{C}\arrow{ul}{\eta\otimes\eta}\arrow{ur}{\eta}\arrow{rr}{\id} && \mathbb{C} &
+            \end{tikzcd}\]
+        \end{definition}
 
 \section{Bialgebra Structure}
-    %Or Here
 
 \begin{definition} Define a map $\Delta : \mathcal{H}_Q \rightarrow \mathcal{H}_Q \times \mathcal{H}_Q$ by $$\Delta([V])=\sum_{[U],[W]} t^{<W,U>} F^V_{W,U} \frac{a_u a_w}{a_v} [W][U]=\sum_{[U],[W]} t^{<W,U>} P^V_{W,U} \frac{1}{a_v} [W][U]$$ and a map $\epsilon : \mathcal{H}_Q \rightarrow \mathbb{C}$ by $$\epsilon ([V]) =   \begin{Bmatrix} 1 & if & V=0 \\ 0 & else & \end{Bmatrix} $$
 \end{definition}
