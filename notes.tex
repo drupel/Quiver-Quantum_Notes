@@ -964,7 +964,7 @@ Let $Q = 1 \leftarrow 2$ Then $\sigma_2 Q = 1 \to 2$. Recall that $S_1 = \mathbb
         	We won't make precise what measure to use in general, but we will use this as motivation for defining an algebra attached to $Q$ whose structure constants encode extensions.
     
     \begin{definition}
-        For $W\inM_{\underline{d}}(Q)$, write $1_W$ for the characteristic function
+        For $W\in M_{\underline{d}}(Q)$, write $1_W$ for the characteristic function
         \[1_W(W') = \begin{cases} 
         1 & \text{if } \  W=W' \\
         0 & \text{else}
@@ -1123,18 +1123,18 @@ Let \[(n)_t=t^{-n+1}+t^{-n+3}+\ldots+t^{n-3}+t^{n-1}.\] Then
     \begin{corollary}
         For any $r,s\geq 0$, we have 
         \[\left[S_1^r\right]\left[S_2\right]\left[S_1^s\right]  = \sum_{a=0}^s t^{-ns+(r-a)(s-a)+rs}\begin{bmatrix}r+s-a\\ r\end{bmatrix}_q \left[S_1^{r+s-a}\right]X_a \]
-            and \[\left[S_2^r\right]\left[S_1\right]\left[S_2^s\right] & = \sum_{a=0}^r t^{-nr+(r-a)(s-a)+rs}\begin{bmatrix}r+s-a\\ s\end{bmatrix}_q Y_a\left[S_2^{r+s-a}\right].\]
+            and \[\left[S_2^r\right]\left[S_1\right]\left[S_2^s\right]  = \sum_{a=0}^r t^{-nr+(r-a)(s-a)+rs}\begin{bmatrix}r+s-a\\ s\end{bmatrix}_q Y_a\left[S_2^{r+s-a}\right].\]
     \end{corollary}
    
     Let $Q$ be a quiver and fix $i,j\in Q_0$ so that these vertices are joined by $n$ arrows from $j$ to $i$. Then
     \begin{align*}
-       \left[S_i\right]^k & =  t^\binom{k}{2}[k]_q^!\left[S_i^k\right]\\
+      \left[S_i\right]^k & =  t^{\binom{k}{2}}[k]_q^!\left[S_i^k\right]\\
        \left[S_i^k\right]\left[S_i^l\right] & =  t^{lk}\begin{bmatrix}l+k\\ k\end{bmatrix}_q\left[S_i^{k+l}\right]
     \end{align*}
     If $\dim V_i=a$, $\dim V_j=1$, and $\dim V_k=0$ for $k\neq i,j$, then 
-    \[\left[S_i^r\right]\left[V\right] & =  t^{ra}\left[S_i^r\oplus V\right].\]
+    \[\left[S_i^r\right]\left[V\right]  =  t^{ra}\left[S_i^r\oplus V\right].\]
     If $\dim V_i=s$, $\dim V_j=1$, and $\dim V_k=0$ for $k\neq i,j$, then 
-    \[\left[S_j\right]\left[S_i^r\right] & =  \sum_{[V]}t^{-nr}\left[V\right].\]
+    \[\left[S_j\right]\left[S_i^r\right]  =  \sum_{[V]}t^{-nr}\left[V\right].\]
    
     \begin{theorem}[Ringel]
         Inside $\mathcal{H}_Q$, we have \[\sum_{r=0}^{n+1}(-1)^r[S_i]^{(r)}[S_j][S_i]^{(n+1-r)}=0\] and \[\sum_{r=0}^{n+1}(-1)^r[S_j]^{(r)}[S_i][S_j]^{(n+1-r)}=0.\]
