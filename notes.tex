@@ -1193,7 +1193,7 @@ Let \[(n)_t=t^{-n+1}+t^{-n+3}+\ldots+t^{n-3}+t^{n-1}.\] Then
         \end{tikzcd}\]
         
         \begin{exercise}
-            Let $B$ be a vector space together with linear maps $\eta:\mathbb{C}\to B$, $\mu:B\otimes B\to B$, $\epsilon:B\to\mathbb{C}$, and $\Delta:B\toB\otimes B$ such that $(B,\eta,\mu)$ is an algebra and $(B,\epsilon,\Delta)$ is a coalgebra. Consider $B\otimes B$ as an algebra with multiplication $\tilde{\mu}:(B\otimes B)\otimes (B\otimes B)\to B\otimes B $ given by $(\mu\otimes \mu)\circ(1 \otimes \tau\otimes 1)$ where $\tau:B\otimes B\to B\otimes B$ interchanges factors, and as a coalgebra with comultiplication $\Delta\otimes\Delta:B\otimes B \to (B\otimes B)\otimes(B\otimes B)$. Show that $\mu$ is a coalgebra morphism if and only if $\Delta$ is an algebra morphism. 
+            Let $B$ be a vector space together with linear maps $\eta:\mathbb{C}\to B$, $\mu:B\otimes B\to B$, $\epsilon:B\to\mathbb{C}$, and $\Delta:B\to B\otimes B$ such that $(B,\eta,\mu)$ is an algebra and $(B,\epsilon,\Delta)$ is a coalgebra. Consider $B\otimes B$ as an algebra with multiplication $\tilde{\mu}:(B\otimes B)\otimes (B\otimes B)\to B\otimes B $ given by $(\mu\otimes \mu)\circ(1 \otimes \tau\otimes 1)$ where $\tau:B\otimes B\to B\otimes B$ interchanges factors, and as a coalgebra with comultiplication $\Delta\otimes\Delta:B\otimes B \to (B\otimes B)\otimes(B\otimes B)$. Show that $\mu$ is a coalgebra morphism if and only if $\Delta$ is an algebra morphism. 
         \end{exercise}
         
         \begin{definition}
@@ -1252,6 +1252,69 @@ $$([W]\otimes [U])([W']\otimes[U'])=t^{([U],[W'])}[W][W'] \otimes [U][U']$$
 \begin{theorem}[Green]
 Considering $\mathcal{H}_Q \otimes \mathcal{H}_Q$ with this twisted multiplication, the map $\Delta: \mathcal{H}_Q  \rightarrow \mathcal{H}_Q \otimes \mathcal{H}_Q$ is an algebra homomorphism. 
 \end{theorem}
+
+\begin{proof}
+For $W,U \in rep_{\mathbb{F}}Q$ we need to check that $\Delta ([W][U])=\Delta ([W])\Delta ([U])$ 
+
+$$\Delta ([W][U]) =  \sum_{[V]} t^{<W,U>} F^V_{W,U} \Delta( [V] ) =  \sum_{[V],[X],[Y]} t^{<W,U>+<Y,X>} F^V_{W,U}  F^V_{Y,X} \frac{a_X a_Y}{a_V} [Y] \otimes [X]$$
+
+\begin{align*} 
+\Delta ([W]) \Delta([U]) &=  \left(\sum_{[C],[D]} t^{<D,C>} F^W_{D,C}  \frac{a_C a_D}{a_W} [D] \otimes [C]\right) \left(\sum_{[A],[B]} t^{<B,A>} F^U_{B,A}  \frac{a_A a_B}{a_U} [B] \otimes [A] \right) \\
+&= \sum_{[A],[B],[C],[D]} t^{<D,C>+<B,A>+([C],[B])} F^U_{B,A}  F^W_{D,C} \frac{a_A a_B a_C a_D}{a_U a_W} [D][B] \otimes [C][A]\\
+&=  \sum_{[A],[B],[C],[D],[X],[Y]} t^{<D,C>+<B,A>+([C],[B])+<D,B>+<C,A>} F^U_{B,A}  F^W_{D,C} F^Y_{D,B} F^X_{C,A} \frac{a_A a_B a_C a_D}{a_U a_W} [Y] \otimes [X]
+\end{align*}
+Note that $<W,U>+<Y,X>=<C+D,A+B>+<B+D,A+C> = 2<D,A> +(\text{exponent on second sum}).$
+So we need to show
+$$a_Ua_Wa_Xa_Y \sum_{[V]} F^V_{W,U} F^V_{Y,X}a_V^{-1} = \sum_{[A],[B],[C],[D]}q^{-<D,A>} F^U_{B,A} F^W_{D,C} F^Y_{D,B} F^X_{C,A} a_Aa_Ba_Ca_D$$  
+This equation is called Green's Formula. \\
+The left hand side counts "crosses" weighted by $a_V^{-1}=|Aut(V)|^{-1}.$ 
+ \[\begin{tikzcd}
+             & & 0\arrow{d}& &  \\
+	 & & X\arrow{d}& &  \\
+	0 \arrow{r} & U\arrow{r} &V \arrow{d} \arrow{r}& W \arrow{r}& 0 \\
+           & & Y\arrow{d}& &  \\
+	& & 0& &  
+            \end{tikzcd}\]
+The right hand side counts "boxes" weighted by $a_Aa_Ba_Ca_D q^{-<D,A>}$
+ \[\begin{tikzcd}
+             &  0\arrow{d}& &0\arrow{d} &  \\
+	0 \arrow{r} & A \arrow{r}{\iota_X} \arrow{d}{\iota_U}& X\arrow{r}{\pi_X}& C\arrow{r}\arrow{d}{\iota_W}& 0 \\
+	& U\arrow{d}{\pi_U} & & W \arrow{d}{\pi_W}&  \\
+           0 \arrow{r} & B \arrow{r}{\iota_Y} \arrow{d}& Y\arrow{r}{\pi_Y}& D\arrow{r}\arrow{d}& 0 \\
+	& 0 & & 0&  
+            \end{tikzcd}\]
+The goal is to give a weighted bijection between the collections of such configurations. 
+\begin{lemma}
+Given a box as above define M and N by the following diagrams:\\
+\begin{center}
+ $\begin{tikzcd}
+            A \arrow{r}{\iota_X} \arrow{d}{\iota_U}  \arrow[dr, phantom, "\ulcorner", very near start] & X \arrow{d}{\alpha_X} \\
+	U \arrow{r}{\alpha_U} &  M
+            \end{tikzcd}$
+\hskip 10 pt 
+ $\begin{tikzcd}
+            N \arrow{r}{\beta_W} \arrow{d}{\beta_Y}  \arrow[dr, phantom, "\lrcorner", very near end] & W \arrow{d}{\pi_W} \\
+	Y \arrow{r}{\pi_Y} &  D
+            \end{tikzcd}$
+\end{center}
+There exists a unique map $\theta : M \to N$ such that:
+\begin{align*} 
+\beta_Y \circ \theta \circ \alpha_X &=0 & \beta_Y \circ \theta \circ \alpha_U &= \iota_Y \circ \pi_Y     \\
+ \beta_W \circ \theta \circ \alpha_X &= \iota_W \circ \pi_X  &   \beta_W \circ \theta \circ \alpha_U &=0
+\end{align*}
+
+This map gives an exact sequence:
+$$0 \rightarrow A \xrightarrow[\bullet=X \text{ or } U]{\alpha_\bullet \circ \iota_\bullet} M \xrightarrow{\theta} N \xrightarrow[\bullet=Y \text{ or } W]{\pi_\bullet \circ \beta_\bullet} D \rightarrow 0$$
+
+\end{lemma}
+
+\begin{proof}(of lemma) Consider the zero map $0:X \rightarrow Y$ together with the map $\iota_Y \circ \pi_U : U \rightarrow Y$. These satisfy $0\circ \iota_X = 0 = \iota_Y \circ \pi_U \circ \iota_U$ and so there is a map $\theta_Y:M\rightarrow Y $ such that $\theta_Y \circ \alpha_X = 0$ and $\theta_Y \circ \alpha_U = \iota_Y \circ \pi_U$. Similarly, using zero map $0:U \rightarrow W$ and the map $\iota_W \circ \pi_X :X \rightarrow W$ we get a map $\theta_W :M \rightarrow W$ such that $\theta_W \circ \alpha_U =0$ and $\theta_W \circ \alpha_X = \iota_W \circ \pi_X$. By construction we have $\pi_Y \circ \theta_Y \circ \alpha_X = 0 = \pi_W \circ \iota_W \circ \pi_X = \pi_W \circ \theta_W \circ \alpha_X.$ Similarly $\pi_W \circ \theta_W \circ \alpha_U = 0 = \pi_Y \circ \iota_Y \circ \pi_Y = \pi_Y \circ \theta_Y \circ \alpha_U.$ Since $[\alpha_U \alpha_X] : U \oplus X \rightarrow M$ is surjective, the maps $\pi_W \circ \theta_W \circ [\alpha_U \alpha_X]$ and $\pi_Y \circ \theta_Y \circ [\alpha_U \alpha_X]$ being equal implies $\pi_Y \circ \theta_Y = \pi_W \circ \theta_W$. Thus, since $N$ is the pullback of $\pi_W$ and $\pi_Y$ we get a map $\theta : M\rightarrow N$ such that $\beta_W \circ \theta = \theta_W$ and  $\beta_Y \circ \theta = \theta_Y$. \\
+Clearly $\theta$ satisfies the required four equations in the lemma, and since $\begin{bmatrix} \beta_W \\ \beta_Y \end{bmatrix}:N \rightarrow W\oplus Y$ is injective and $[\alpha_U \alpha_X] : U \oplus X \rightarrow M$ is surjective, $\theta$ is uniquely determined. \\
+We have $\begin{bmatrix} \beta_W \\ \beta_Y \end{bmatrix} \circ \theta \circ [\alpha_U \alpha_X] = \begin{bmatrix} 0 &  \iota_W \pi_X \\ \iota_Y \pi_U & 0 \end{bmatrix} = \begin{bmatrix} 0 &  \iota_W \\ \iota_Y  & 0 \end{bmatrix}  \begin{bmatrix}\pi_U &0 \\ 0 & \pi_X \end{bmatrix} $ which implies exactness of the sequence.\\
+This map has image isomorphic to $C\oplus B$ and using injectivity and surjectivity, $\theta$ has the same (up to isomorphism) image inside N. But $dim_\mathbb{F}M =dim_\mathbb{F}U +dim_\mathbb{F}X -dim_\mathbb{F}A =dim_\mathbb{F}(C\oplus B)+dim_\mathbb{F}A,$ so the sequence is exact at M, and similarly it is exact at N.
+\end{proof}
+
+\end{proof}
 
   \section{Relation to Symmetric Functions}
 
