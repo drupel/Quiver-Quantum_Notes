@@ -1253,8 +1253,8 @@ $$([W]\otimes [U])([W']\otimes[U'])=t^{([U],[W'])}[W][W'] \otimes [U][U']$$
 Considering $\mathcal{H}_Q \otimes \mathcal{H}_Q$ with this twisted multiplication, the map $\Delta: \mathcal{H}_Q  \rightarrow \mathcal{H}_Q \otimes \mathcal{H}_Q$ is an algebra homomorphism. 
 \end{theorem}
 
-\begin{proof}
-For $W,U \in rep_{\mathbb{F}}Q$ we need to check that $\Delta ([W][U])=\Delta ([W])\Delta ([U])$ 
+
+To prove the theorem we need to show for $W,U \in rep_{\mathbb{F}}Q$ we need to check that $\Delta ([W][U])=\Delta ([W])\Delta ([U])$ 
 
 $$\Delta ([W][U]) =  \sum_{[V]} t^{<W,U>} F^V_{W,U} \Delta( [V] ) =  \sum_{[V],[X],[Y]} t^{<W,U>+<Y,X>} F^V_{W,U}  F^V_{Y,X} \frac{a_X a_Y}{a_V} [Y] \otimes [X]$$
 
@@ -1314,6 +1314,94 @@ We have $\begin{bmatrix} \beta_W \\ \beta_Y \end{bmatrix} \circ \theta \circ [\a
 This map has image isomorphic to $C\oplus B$ and using injectivity and surjectivity, $\theta$ has the same (up to isomorphism) image inside N. But $dim_\mathbb{F}M =dim_\mathbb{F}U +dim_\mathbb{F}X -dim_\mathbb{F}A =dim_\mathbb{F}(C\oplus B)+dim_\mathbb{F}A,$ so the sequence is exact at M, and similarly it is exact at N.
 \end{proof}
 
+\begin{definition}
+Given representations $A,D\in Rep_{\mathbb{F}}Q$ write $Ext^2(D,A)$ for the set of equivalence classes of sequences $$\xi : 0 \rightarrow A \rightarrow E_1 \rightarrow E_2 \rightarrow D \rightarrow 0 \\ \xi ': 0 \rightarrow A \rightarrow E_1' \rightarrow E_2' \rightarrow D \rightarrow 0$$ where the sequences are equivalent if there exists a commutative diagram: 
+
+$$\begin{tikzcd}
+            0 \arrow{r}  & A \arrow{r} \arrow[d, equal] & E_1 \arrow{r} & E_2 \arrow{r} &D \arrow{r} & 0  \\ 
+	0 \arrow{r}  & A \arrow{r} \arrow[d, equal] & E_1'' \arrow{r} \arrow{d} \arrow{u} & E_2'' \arrow{r} \arrow{d} \arrow{u} &D \arrow{r} \arrow[d, equal] \arrow[u,equal] & 0  \\ 
+            0 \arrow{r}  & A \arrow{r}  & E_1' \arrow{r} & E_2' \arrow{r} &D \arrow{r} & 0   
+            \end{tikzcd}$$
+As with $Ext^1$ we may define an addition on $Ext^2$ as follows: given $\xi, \xi '$ consider the commutative diagram:
+$$\begin{tikzcd}
+            0 \arrow{r}  & A \oplus A \arrow{r} \arrow[d, equal] & E_1 \oplus E_1' \arrow{r} & E_2 \oplus E_2' \arrow{r} &D\oplus D \arrow{r} & 0  \\ 
+	0 \arrow{r}  & A \oplus A \arrow{r} \arrow{d}{(1,1)}  \arrow[dr, phantom, "\ulcorner", very near start] & E_1 \oplus E_1'  \arrow{r} \arrow{d} \arrow[u, equal] & C \arrow{r} \arrow[d,equal] \arrow{u}  \arrow[ur, phantom, "\urcorner", very near end] &D \arrow{r} \arrow[d, equal] \arrow{u}{ \Delta } & 0  \\ 
+            0 \arrow{r}  & A \arrow{r}  & B \arrow{r} & C \arrow{r} &D \arrow{r} & 0   
+            \end{tikzcd}$$
+The bottom row gives the sequence $\xi + \xi '.$
+\end{definition}
+
+\begin{exercise} 
+\begin{enumerate}
+\item Show that this gives a well-defined abelian group structure on $Ext^2(D,A)$ with unit $$0 \rightarrow A \xrightarrow{1} A \xrightarrow{0} D \xrightarrow{1} D \rightarrow 0$$
+	Idea: Show that $Ext^2(-,-)$ is a bifunctor where addition defined above is compatible with additive structure of Hom-spaces. 
+\item Show there is a morphism of abelian groups \[Ext^1(D,I) \otimes Ext^1(I,A) \rightarrow Ext^2(D,A)  \] \[  ([0 \rightarrow I  \rightarrow E_2 \rightarrow D \rightarrow 0],[0 \rightarrow A  \rightarrow E_1 \rightarrow I \rightarrow 0]) \mapsto [
+            0 \rightarrow A \rightarrow E_1 \rightarrow E_2  \rightarrow D \rightarrow 0 ].\]
+\item Generalize this to $Ext^n$.
+\end{enumerate} 
+\end{exercise} 
+
+\begin{theorem}[Schanuel]
+Let $ \xi : 0 \rightarrow A \xrightarrow{\theta_1} E_1 \xrightarrow{\theta_2} E_2 \xrightarrow{\theta_3} D \rightarrow 0 $ be a sequence in $Ext^2(D,A)$. Let $I=im(\theta_2)$. Then $\xi =0$ in $Ext^2(D,A)$ if and only if there exists a commutative diagram: 
+$$\begin{tikzcd}
+            &&0 \arrow{d}&0\arrow{d}& \\ 
+	0 \arrow{r}  & A \arrow{r} \arrow[d,equal]  & E_1 \arrow{r} \arrow{d} \arrow[dr, phantom, "\ulcorner", very near start  ]  \arrow[dr, phantom, "\lrcorner", very near end  ]& I \arrow{r} \arrow[d]   &0  \\ 
+           0 \arrow{r}  & A \arrow{r}  & V \arrow{r} \arrow{d}  & E_2 \arrow{r} \arrow[d]   &0  \\ 
+	&&D \arrow[r,equal] \arrow{d}&D\arrow{d}&\\
+          &&0&0&
+            \end{tikzcd}$$
+Which gives the sequence $$ 0 \rightarrow Hom(D,A) \rightarrow Hom(D,E_1) \rightarrow Hom(D,I) \rightarrow Ext^1(D,A) \rightarrow Ext^1(D,E_1) \rightarrow Ext^1(D,I) \rightarrow Ext^2(D,A) $$
+\end{theorem}
+
+\begin{corollary}
+We get a commutative diagram:
+ \[\begin{tikzcd}
+             &  0\arrow{d}& 0\arrow{d} &0\arrow{d} &  \\
+	0 \arrow{r} & A \arrow{r}{\iota_X} \arrow{d}{\iota_U}& X\arrow{d} \arrow{r}{\pi_X}& C\arrow{r}\arrow{d}{\iota_W}& 0 \\
+	0\arrow{r}& U\arrow{d}{\pi_U} \arrow{r} & V \arrow{r} \arrow{d} & W\arrow{r} \arrow{d}{\pi_W}& 0 \\
+           0 \arrow{r} & B \arrow{r}{\iota_Y} \arrow{d}& Y \arrow{d} \arrow{r}{\pi_Y}& D\arrow{r}\arrow{d}& 0 \\
+	& 0 & 0& 0&  
+            \end{tikzcd}\]
+\end{corollary}
+
+\begin{proof}
+Since $Ext^2(D,A)=0$ write $I=im(\theta)$, there exists a commutative diagram:
+
+$$\begin{tikzcd}
+            &&0 \arrow{d}&0\arrow{d}& \\ 
+	0 \arrow{r}  & A \arrow{r} \arrow[d,equal]  & M \arrow{r} \arrow{d}{\omega_M} \arrow{dr}{\theta} & I \arrow{r} \arrow[d]   &0  \\ 
+           0 \arrow{r}  & A \arrow{r}  & V \arrow{r}{\omega_N} \arrow{d}  & N \arrow{r} \arrow[d]   &0  \\ 
+	&&D \arrow[r,equal] \arrow{d}&D\arrow{d}&\\
+          &&0&0&
+            \end{tikzcd}$$
+Define maps:
+\begin{align*} 
+\omega_M \circ \alpha_U &: U \rightarrow V  &  \beta_W \circ \omega_N &: N \rightarrow W    \\
+ \omega_M \circ \alpha_X &: X \rightarrow V   &   \beta_Y \circ \omega_N &: V \rightarrow Y
+\end{align*}
+ By definition we have: 
+\begin{align*} 
+(\omega_M \circ \alpha_U) \circ \iota_U &= (\omega_M \circ \alpha_X) \circ \iota X  \\
+(\beta_Y \circ \omega_N) \circ (\omega_N \circ \alpha_U) &= \beta_Y \circ \theta \circ \alpha_U = \iota_Y \circ \pi_U \\
+(\beta_W \circ \omega_N) \circ (\omega_M \circ \alpha_X) &= \beta_W \circ \theta \circ \alpha_X = \iota_W \circ \pi_X \\
+\pi_W \circ (\beta_W \circ \omega_N)  &=  \pi_Y \circ  (\beta_Y \circ \omega_N)
+\end{align*} 
+Thus the diagram commutes. It remains to show the middle row and column are exact. \\
+By construction $\alpha_U, \alpha_X,$ and $\omega_M$ are injective and $\beta_W, \beta_Y,$ and $\omega_N$ are surjective. \\
+We also have:
+\begin{align*} 
+(\beta_W \circ \omega_N) \circ (\omega_M \circ \alpha_U) &= \beta_W \circ \theta \circ \alpha_U &= 0 \\
+(\beta_Y \circ \omega_N) \circ (\omega_M \circ \alpha_X) &= \beta_Y \circ \theta \circ \alpha_X &= 0
+\end{align*}
+So $im(\omega_M \circ \alpha_{\bullet}) \subseteq ker(\beta_{\bullet} \circ \omega_N)$ with $\bullet = X$ and $Y$ or $\bullet = U$ and $W$. 
+But 
+\begin{align*} 
+dim_{\mathbb{F}}V &= dim_{\mathbb{F}}M + dim_{\mathbb{F}}D \\
+&=dim_{\mathbb{F}}U +dim_{\mathbb{F}}X - dim_{\mathbb{F}}A +dim_{\mathbb{F}}D \\
+&= dim_{\mathbb{F}}B +dim_{\mathbb{F}}X + dim_{\mathbb{F}}D \\
+&= dim_{\mathbb{F}}X + dim_{\mathbb{F}}Y
+\end{align*}
+So the middle column is exact. A similar calculation gives that the middle row is exact
 \end{proof}
 
   \section{Relation to Symmetric Functions}
