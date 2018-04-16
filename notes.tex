@@ -1473,6 +1473,20 @@ So the middle column is exact. A similar calculation gives that the middle row i
     \end{lemma}
     
     \underline{Idea of proof}: If $\tau\theta$ is not irreducible, then it factors as $\phi_2\circ\phi_1:\tau V\to Z\to\tau W$. Since $Z$ has no injective summands, $\theta$ factors as $\tau^{-1}\phi_2\circ \tau^{-1}\phi_1.$
+    
+    % 4/11/18
+    
+    \begin{prop}
+        The Auslander-Reiten quiver $\Gamma$ of a Dynkin quiver $Q$ has no oriented cycles. 
+    \end{prop}
+    
+    \begin{proof}
+        Suppose there exists an oriented cycle $V_1\to V_2\to \cdots\to V_k \to V_1$ in $\Gamma$ where each $V_i$ is indecomposable and each map is irreducible. Apply $\tau$ the minimal number of times so that some $V_i$ becomes projective, say $V_1$. Then the map $V_k\to V_1$ must be a monomorphism with $V_k$ projective. By induction, each $V_i$ is projective and each map must be a monomorphism. Then composing we get an injective map $V_1\to V_1$ which must be an isomorphism. It follows that all maps $V_i\to V_{i+1}$ are isomorphisms, contradicting irreducibility. 
+    \end{proof}
+    
+    \begin{lemma}
+        Let $Q$ be a Dynkin quiver. For any positive roots $\alpha,\alpha'\in\Phi^+$, there exists $h_{\alpha,\alpha'}\in\mathbb{N}$ so that $\dim_\mathbb{F}\Hom_Q(V(\alpha,\mathbb{F},V(\alpha',\mathbb{F})=h_{\alpha,\alpha'}$ is independent of the field $\mathbb{F}$.
+    \end{lemma}
 
 
   \section{Relation to Symmetric Functions}
