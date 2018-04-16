@@ -1530,6 +1530,15 @@ So the middle column is exact. A similar calculation gives that the middle row i
     \begin{lemma}
         The total ordering $\prec_Q$ on $\Phi^+$ is $Q$-admissible.
     \end{lemma}
+    
+    \begin{proof}
+        Recall for indecomposable representations $U,W\in\rep_\mathbb{F}Q$ with $\tau U,\tau W\neq 0$ that $\Hom_Q(\tau U,\tau W)\cong\Hom_Q(U,W).$ Consider $\alpha,\alpha'\in\Phi^+$ with $\alpha'\prec_Q\alpha$. We need to show $h_{\alpha,\alpha'}=0.$ Indeed, 
+        \begin{align*}
+            h_{\alpha,\alpha'}&=\dim_\mathbb{F}\Hom_Q(V(\alpha,\mathbb{F}),V(\alpha',\mathbb{F}))\\
+            &=\dim_\mathbb{F}\Hom_Q(\tau^lV(\alpha,\mathbb{F}),\Sigma_{i_1}^-\cdots\Sigma_{i_{t-1}}^-S_{i_t})
+        \end{align*}
+        If $l<k$, then $\tau^l V(\alpha,\mathbb{F})$ is not projective and so $h_{\alpha,\alpha'}=0.$ So assume $l=k$ so that \[h_{\alpha,\alpha'}=\dim_\mathbb{F}\Hom_Q(\Sigma_{i_1}^-\cdots\Sigma_{i_{r-1}}^-S_{i_r},\Sigma_{i_1}^-\cdots\Sigma_{i_{t-1}}^-S_{i_t})\] with $t<r$. But then \[h_{\alpha,\alpha'}=\dim_\mathbb{F}\Hom_Q(\Sigma_{i_t}^-\cdots\Sigma_{i_{r-1}}^-S_{i_r},S_{i_t})\] where $S_{i_t}$ is a simple projective for $Q'$ and so $h_{\alpha,\alpha'}=0.$
+     \end{proof}
 
 
   \section{Relation to Symmetric Functions}
