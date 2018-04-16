@@ -1487,6 +1487,49 @@ So the middle column is exact. A similar calculation gives that the middle row i
     \begin{lemma}
         Let $Q$ be a Dynkin quiver. For any positive roots $\alpha,\alpha'\in\Phi^+$, there exists $h_{\alpha,\alpha'}\in\mathbb{N}$ so that $\dim_\mathbb{F}\Hom_Q(V(\alpha,\mathbb{F}),V(\alpha',\mathbb{F}))=h_{\alpha,\alpha'}$ is independent of the field $\mathbb{F}$.
     \end{lemma}
+    
+    \begin{proof}
+        If $\alpha=\alpha'$, we know that $V(\alpha,\mathbb{F})$ is rigid and thus $1=q(\alpha)=\left<\alpha,\alpha\right>=\dim_\mathbb{F}\Hom_Q(V(\alpha,\mathbb{F}),V(\alpha,\mathbb{F}))-\dim_\mathbb{F}\Ext_Q(V(\alpha,\mathbb{F}),V(\alpha,\mathbb{F}))=\dim_\mathbb{F}\Hom_Q(V(\alpha,\mathbb{F}),V(\alpha,\mathbb{F}))-0$. So $h_{\alpha,\alpha}=1$. If $V(\alpha,\mathbb{F})$ is projective, say it is the projective cover of the simple $S_i$. Then $\dim_\mathbb{F}\Hom_Q(V(\alpha,\mathbb{F}),V(\alpha',\mathbb{F}))=a_i'$ is independent of $\mathbb{F}.$ If $V(\alpha,\mathbb{F})$ is not projective but $V(\alpha',\mathbb{F})$ is projective, then $\dim_\mathbb{F}\Hom_Q(V(\alpha,\mathbb{F}),V(\alpha',\mathbb{F}))=0.$ Otherwise, we can apply $\tau$ to reduce to one of these cases.
+    \end{proof}
+    
+    \begin{corollary}
+        Let $\beta,\beta':\Phi^+\to\mathbb{N}$ be multisets of positive roots. There exists $h_{\beta,\beta'}\in\mathbb{N}$ so that $\dim_\mathbb{F}\Hom_Q(V(\beta,\mathbb{F}),V(\beta',\mathbb{F}))=h_{\beta,\beta'}$ is independent of $\mathbb{F}$.
+    \end{corollary}
+    
+    \begin{proof}
+        $\Hom_Q(V(\beta,\mathbb{F}),V(\beta',\mathbb{F}))\cong\bigoplus_{\alpha,\alpha'}\Hom_Q(V(\alpha,\mathbb{F}),V(\alpha',\mathbb{F}))^{\oplus\beta(\alpha)\beta'(\alpha')}$. So $h_{\beta,\beta'}=\sum_{\alpha,\alpha'\in\Phi^+}\beta(\alpha)\beta'(\alpha')h_{\alpha,\alpha'}$. 
+    \end{proof}
+    
+    \begin{corollary}
+        For positive roots $\alpha,\alpha'\in\Phi^+$, there exists $e_{\alpha,\alpha'}\in\mathbb{N}$ so that  $\dim_\mathbb{F}\Ext_Q(V(\alpha,\mathbb{F}),V(\alpha',\mathbb{F}))=e_{\alpha,\alpha'}$ is independent of $\mathbb{F}$. Similarly for $\beta,\beta':\Phi^+\to\mathbb{N}$.
+    \end{corollary}
+    
+    \begin{proof}
+        \begin{align*}
+        \dim_\mathbb{F}\Ext_Q(V(\alpha,\mathbb{F}),V(\alpha',\mathbb{F}))&=\dim_\mathbb{F}\Hom_Q(V(\alpha,\mathbb{F}),V(\alpha',\mathbb{F}))-\left<\alpha,\alpha'\right>\\
+        &=h_{\alpha,\alpha'}-\left<\alpha,\alpha'\right> \\&=: e_{\alpha,\alpha'}.
+        \end{align*}
+    \end{proof}
+    
+    \begin{definition}
+        Let $Q$ be a Dynkin quiver and $\Phi^+$ the associated set of positive roots. A total ordering $\prec$ on $\Phi^+$ is \textbf{$Q$-admissible} if $h_{\alpha,\alpha'}\neq 0$ implies $\alpha\preceq\alpha'.$
+    \end{definition}
+    
+    \begin{lemma}
+        A total ordering $\prec$ on $\Phi^+$ is $Q$-admissible if and only if $\left<\alpha,\alpha'\right>>0$ implies $\alpha\preceq\alpha'.$ Such an ordering also satisfies: $\left<\alpha,\alpha'\right><0$ implies $\alpha'\prec\alpha.$
+    \end{lemma}
+    
+    \begin{proof}
+        Recall that $\Hom_Q(V(\alpha,\mathbb{F}),V(\alpha',\mathbb{F}))$ and $\Ext_Q(V(\alpha,\mathbb{F}),V(\alpha',\mathbb{F}))$ cannot both be nonzero. So $\left<\alpha,\alpha'\right>>0$ if and only if $h_{\alpha,\alpha'}\neq 0$ and $\left<\alpha,\alpha'\right><0$ implies $e_{\alpha,\alpha'}>0$ and $h_{\alpha,\alpha'}=0.$
+    \end{proof}
+    
+    \begin{definition}
+        Let $Q$ be Dynkin and $(i_1,\ldots,i_n)$ a sink adapted sequence. Define a total ordering $\prec_Q$ on $\Phi^+$ as follows: For $\alpha,\alpha'\in\Phi^+$, write $V(\alpha,\mathbb{F})\cong\tau^{-k}\Sigma_{i_1}^-\cdots\Sigma_{i_{r-1}}^-S_{i_r}$ and $V(\alpha',\mathbb{F})\cong\tau^{-l}\Sigma_{i_1}^-\cdots\Sigma_{i_{t-1}}^-S_{i_t}$ for $k.l\geq 0$ and $1\leq r,t\leq n$. Then write $\alpha\prec_Q\alpha'$ if $k<l$ or $k=l$ and $r<t$.
+    \end{definition}
+    
+    \begin{lemma}
+        The total ordering $\prec_Q$ on $\Phi^+$ is $Q$-admissible.
+    \end{lemma}
 
 
   \section{Relation to Symmetric Functions}
