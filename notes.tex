@@ -1404,6 +1404,77 @@ dim_{\mathbb{F}}V &= dim_{\mathbb{F}}M + dim_{\mathbb{F}}D \\
 So the middle column is exact. A similar calculation gives that the middle row is exact
 \end{proof}
 
+
+%4/9/18 notes 
+\begin{definition}
+        Let $Q$ be an acyclic quiver. The \textbf{Auslander-Reiten quiver} $\Gamma$ of $Q$ has as vertices the isomorphism classes of indecomposable representations and has an arrow $V\to W$ if there exists an irreducible morphism $\theta:V\to W.$
+    \end{definition}
+    
+    \begin{definition}
+        Given a sink-adapted sequence $(i_1,\ldots,i_n)$ of $Q$, there is a Coxeter functor $C_+=\Sigma_{i_n}^+\cdots\Sigma_{i_1}^+$ acting on $\rep_\mathbb{F}Q.$
+    \end{definition}
+    
+    \begin{theorem}[Brenner-Butler]
+        The Coxeter functor $C_+$ identifies with the Auslander-Reiten translation $\tau$ acting on $\rep_\mathbb{F}Q.$
+    \end{theorem}
+    
+    We've seen the following properties of $\tau$:
+    \begin{enumerate}
+        \item If $V$ is indecomposable and not projective, then $\tau(V)$ is indecomposable. This implies that $\tau$ acts on vertices of the Auslander-Reiten quiver $\Gamma$ of $Q$.
+        \item $V$ is projective (resp. injective) if and only if $\tau(V)=0$ (resp. $\tau^{-1}(V)=0$). If $V$ is not projective, there exists a nonsplit exact sequence 
+        \begin{tikzcd}
+        0\arrow{r}&\tau(V) \arrow{r} &X\arrow{r}&V\arrow{r}&0
+        \end{tikzcd}.
+        \item If $V,W\in \rep_\mathbb{F}Q$ have no projective summands, then $\Hom_Q(V,W)\cong \Hom_Q(\tau V,\tau W)$.
+        \item A representation $V$ is preprojective (resp. preinjective) if $\tau^k(V)=0$ for some $k>0$ (resp. $k<0$). For a Dynkin quiver, every (indecomposable) representation is preprojective. 
+    \end{enumerate}
+    
+    Last time we showed that $\theta:V\to W$ is irreducible if and only if $\theta\in \text{Rad}_Q(V,W)\setminus \text{Rad}^2_Q(V,W)$.
+    
+    \begin{corollary}
+        The Auslander-Reiten quiver $\Gamma$ has no loops, i.e. there is no indecomposable representation $V$ with an irreducible endomorphism.
+    \end{corollary}
+    
+    \begin{proof}
+        Let $\theta:V\to W$ be a non-isomorphism. Then it factors as $V\twoheadrightarrow \im\theta \hookrightarrow V$, an element of $\text{Rad}^2_Q(V,V)$. So $\theta$ is not ireeducible.
+    \end{proof}
+    
+    \begin{lemma}
+        Let $Q$ be a Dynkin quiver. For indecomposable representations $V$ and $W$, the following hold:
+        \begin{enumerate}
+            \item $\Ext_Q(U,W)$ and $\Ext_Q(W,U)$ cannot both be nonzero.
+            \item $\Hom_Q(W,U)$ and $\Ext_Q(W,U)$ cannot both be nonzero.
+            \item $\Hom_Q(U,W)$ and $\Hom_Q(W,U)$ cannot both be nonzero.
+        \end{enumerate}
+    \end{lemma}
+    
+    \begin{proof}
+        Let $(i_1,\ldots,i_n)$ be a sink-adapted sequence for $Q$ and $\tau=\Sigma_{i_n}^+\cdots \Sigma_{i_1}^+$. Then we can write 
+        \begin{align*}
+            U&\cong \tau^{-k}\Sigma_{i_1}^-\cdots\Sigma_{i_{r-1}}^-S_{i_r}\\
+            W&\cong\tau^{-l}\Sigma_{i_1}^-\cdots\Sigma_{i_{t-1}}^-S_{i_t}
+        \end{align*}
+        for $k,l\geq 0$ and $1\leq r,t\leq n$. Without loss of generality, assume $k\leq l$. Then \[\Ext_Q(U,W)\cong\Ext_Q(\Sigma_{i_1}^-\cdots\Sigma_{i_{r-1}}^-S_{i_r},\tau^k W)=0.\] In the same way, we see that $\Ext_Q(W,U)=0$ when $k=l$. So assume $k<l$. Then \[\Hom_Q(W,U)\cong\Hom_Q(\tau^k,\Sigma_{i_1}^-\cdots\Sigma_{i_{r-1}}^-S_{i_r}).\] Consider $\theta:\tau^kW\to\tau^kU$. Since $\tau^kU$ is projective, $\im\theta\subseteq\tau^kU$ is also projective. But then the map $\tau^kW\twoheadrightarrow\im\theta$ must split, which implies that $\tau^k\cong\im\theta$ by indecomposability. But $\tau^kW$ is not projective (since $k<l$), a contradiction. So we must have $\theta=0$.
+    \end{proof}
+    
+    \underline{Idea}: Draw the Auslander-Reiten quiver so that $W$ lies to the right of $U$ if there exists a nonzero morphism $\theta:U\to W$. Then ``Homs go to the right and Exts go to the left."
+    
+    \begin{example}
+        $Q=1\leftarrow 2\leftarrow\cdots\leftarrow n$. Write $V_{i,j}$, $i\leq j$, for the representation with one-dimensional spaces at vertices $i\leq k\leq j$ and identity maps when this makes sense. These are all the indecomposables. The A-R quiver of $Q$ has the general pattern:
+        \[\begin{tikzcd}
+            &V_{i-1,j+1}\arrow{dr}&\\
+            V_{i-1,j}\arrow{ur}\arrow{dr}&&V_{i,j+1}\arrow{ll}{\tau}\\
+            &V_{i,j}\arrow{ur}&
+        \end{tikzcd}\]
+    \end{example}
+    
+    \begin{lemma}
+        Let $Q$ be an acyclic quiver and $V,W\in\rep_\mathbb{F}Q$ indecomposable representations with $\tau V, \tau W\neq 0$. There exists an irreducible morphism $\theta:V\to W$ if and only if there exists an irreducible morphism $\phi:\tau V\to\tau W.$
+    \end{lemma}
+    
+    \underline{Idea of proof}: If $\tau\theta$ is not irreducible, then it factors as $\phi_2\circ\phi_1:\tau V\to Z\to\tau W$. Since $Z$ has no injective summands, $\theta$ factors as $\tau^{-1}\phi_2\circ \tau^{-1}\phi_1.$
+
+
   \section{Relation to Symmetric Functions}
 
   \section{Ringel's Theorem}
