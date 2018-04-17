@@ -38,6 +38,7 @@
  \DeclareMathOperator{\rad}{rad}
  \DeclareMathOperator{\End}{End}
  \DeclareMathOperator{\Ext}{Ext}
+ \DeclareMathOperator{\Aut}{Aut}
 
 \begin{document}
   \maketitle
@@ -1539,6 +1540,27 @@ So the middle column is exact. A similar calculation gives that the middle row i
         \end{align*}
         If $l<k$, then $\tau^l V(\alpha,\mathbb{F})$ is not projective and so $h_{\alpha,\alpha'}=0.$ So assume $l=k$ so that \[h_{\alpha,\alpha'}=\dim_\mathbb{F}\Hom_Q(\Sigma_{i_1}^-\cdots\Sigma_{i_{r-1}}^-S_{i_r},\Sigma_{i_1}^-\cdots\Sigma_{i_{t-1}}^-S_{i_t})\] with $t<r$. But then \[h_{\alpha,\alpha'}=\dim_\mathbb{F}\Hom_Q(\Sigma_{i_t}^-\cdots\Sigma_{i_{r-1}}^-S_{i_r},S_{i_t})\] where $S_{i_t}$ is a simple projective for $Q'$ and so $h_{\alpha,\alpha'}=0.$
      \end{proof}
+     
+     
+     %4/13/18
+    
+    \vspace{1cm} \underline{Last Time}: 
+    \begin{enumerate}
+        \item For a Dynkin quiver $Q$ and multisets $\beta,\beta':\Phi^+\to\mathbb{N}$, there exists a polynomial $\eta_{\beta,\beta'}(T)=T^{h_{\beta,\beta'}}\in\mathbb{Z}[T]$ so that $|\Hom_Q(V(\beta,\mathbb{F}),V(\beta',\mathbb{F}))|=\eta_{\beta,\beta'}(|\mathbb{F}|)$ for any finite field $\mathbb{F}$. 
+        \item There exists a total ordering $\prec_Q$ on $\Phi^+$ so that $h_{\alpha,\alpha'}\neq 0$ implies $\alpha\prec_Q\alpha'$.
+    \end{enumerate}
+    
+    For $\alpha\in\Phi^+$ and $n\in\mathbb{N}$, define $a_{n\alpha}\in\mathbb{Z}[T]$ by \[a_{n\alpha}(T):= \prod_{i=1}^n (\eta_{\alpha,\alpha}^n-\eta_{\alpha,\alpha}^{i-1}).\]
+    For a multiset  $\beta:\Phi^+\to\mathbb{N}$, define $a_\beta\in\mathbb{Z}[T]$ by \[a_{\beta}(T):= \prod_{\alpha\in\Phi^+}a_{\beta(\alpha)\alpha}\cdot\prod_{\substack{\alpha,\alpha'\in\Phi^+ \\ \alpha\neq\alpha'}}\eta_{\alpha,\alpha'}^{\beta(\alpha)\beta(\alpha')}\]
+    Note: Each $a_\beta$ is a monic polynomial. 
+    
+    \begin{lemma}
+        $|\Aut_Q(V(\beta,\mathbb{F}))|=a_\beta(|\mathbb{F}|)$ for any finite field $\mathbb{F}$.
+    \end{lemma}
+    
+    \begin{proof}
+        Since $V(\beta,\mathbb{F})=\bigoplus_{\alpha\in\Phi^+}V(\alpha,\mathbb{F})^{\oplus\beta(\alpha)}$, we may use the total ordering $\prec_Q$ to view an automorphism of $V(\beta,\mathbb{F})$ as an upper triangular matrix with entries indexed by $\Phi^+\times\Phi^+$ whose entry in position $(\alpha,\alpha')$ is zero if $\alpha'\prec_Q\alpha$, is an arbitrary element of $\Hom_Q(V(\alpha,\mathbb{F})^{\oplus\beta(\alpha)},V(\alpha',\mathbb{F})^{\oplus\beta(\alpha')})$ for $\alpha\prec_Q\alpha'$, and is an automorphism of $V(\alpha,\mathbb{F})^{\oplus\beta(\alpha)}$ if $\alpha=\alpha'$. From above, we have $|\Hom_Q(V(\alpha,\mathbb{F})^{\oplus\beta(\alpha)},V(\alpha',\mathbb{F})^{\oplus\beta(\alpha')})|=\eta_{\alpha,\alpha'}^{\beta(\alpha)\beta(\alpha')}(|\mathbb{F}|).$ On the other hand, $\End_Q(V(\alpha,\mathbb{F}))\cong\mathbb{F}$ and so $\Aut_Q(V(\alpha,\mathbb{F})^{\oplus\beta(\alpha)})\cong\text{GL}_{\beta(\alpha)}(\mathbb{F})$ which has cardinality $a_\beta(|\mathbb{F}|)$.
+    \end{proof}
 
 
   \section{Relation to Symmetric Functions}
