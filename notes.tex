@@ -1561,6 +1561,29 @@ So the middle column is exact. A similar calculation gives that the middle row i
     \begin{proof}
         Since $V(\beta,\mathbb{F})=\bigoplus_{\alpha\in\Phi^+}V(\alpha,\mathbb{F})^{\oplus\beta(\alpha)}$, we may use the total ordering $\prec_Q$ to view an automorphism of $V(\beta,\mathbb{F})$ as an upper triangular matrix with entries indexed by $\Phi^+\times\Phi^+$ whose entry in position $(\alpha,\alpha')$ is zero if $\alpha'\prec_Q\alpha$, is an arbitrary element of $\Hom_Q(V(\alpha,\mathbb{F})^{\oplus\beta(\alpha)},V(\alpha',\mathbb{F})^{\oplus\beta(\alpha')})$ for $\alpha\prec_Q\alpha'$, and is an automorphism of $V(\alpha,\mathbb{F})^{\oplus\beta(\alpha)}$ if $\alpha=\alpha'$. From above, we have $|\Hom_Q(V(\alpha,\mathbb{F})^{\oplus\beta(\alpha)},V(\alpha',\mathbb{F})^{\oplus\beta(\alpha')})|=\eta_{\alpha,\alpha'}^{\beta(\alpha)\beta(\alpha')}(|\mathbb{F}|).$ On the other hand, $\End_Q(V(\alpha,\mathbb{F}))\cong\mathbb{F}$ and so $\Aut_Q(V(\alpha,\mathbb{F})^{\oplus\beta(\alpha)})\cong\text{GL}_{\beta(\alpha)}(\mathbb{F})$ which has cardinality $a_\beta(|\mathbb{F}|)$.
     \end{proof}
+    
+    \begin{lemma}
+        Given multisets $\beta,\gamma,\delta:\Phi^+\to\mathbb{N}$, there exist polynomials $\sigma_\beta^\gamma, \rho_\delta^\gamma\in\mathbb{Z}[T]$ such that for any finite field $\mathbb{F}$, the number of subrepresentations $U\subseteq V(\gamma,\mathbb{F})$ with $U\cong V(\beta,\mathbb{F})$ is $\sigma_\beta^\gamma(|\mathbb{F}|)$ and the number of subrepresentations $U\subseteq V(\gamma,\mathbb{F})$ with $V(\gamma,\mathbb{F})/U\cong  V(\delta,\mathbb{F})$ is $\rho_\delta^\gamma(|\mathbb{F}|).$
+    \end{lemma}
+    
+    \begin{proof}
+        If $\underline{\dim}V(\beta,\mathbb{F})\nleq \underline{\dim}V(\gamma,\mathbb{F})$, we set $\sigma_\beta^\gamma(T)\equiv 0$ and if $\underline{\dim}V(\delta,\mathbb{F})\nleq \underline{\dim}V(\gamma,\mathbb{F})$, we set $\rho_\delta^\gamma(T)\equiv 0$. Then assuming these inequalities are actually satisfied, we work by induction on $\underline{\dim}V(\gamma,\mathbb{F}).$ For $\underline{\dim}V(\beta,\mathbb{F})=\underline{\dim}V(\delta,\mathbb{F})=0$, we set $\sigma_\beta^\gamma (T)\cong 1$ and $\rho_\beta^\gamma (T)\cong 1$. In particular, if $\underline{\dim}V(\gamma,\mathbb{F})=0$, we are done in this case. Assume $\underline{\dim}V(\beta,\mathbb{F})\neq 0.$ We work by simultaneous induction on $\underline{\dim}V(\beta,\mathbb{F})$ and  $\underline{\dim}V(\delta,\mathbb{F})$. Below we write $\beta<\delta$ if $\underline{\dim}V(\beta,\mathbb{F})<\underline{\dim}V(\delta,\mathbb{F})$.
+        \begin{claim}
+            \begin{enumerate}
+                \item For $\delta<\beta$, $(\rho_\delta^\beta a_\delta \sigma_\delta^\gamma)(|\mathbb{F|)}$ is the number of maps $V(\beta,\mathbb{F})\to V(\gamma,\mathbb{F})$ whose image is isomorphic to $V(\delta,\mathbb{F})$.
+                \item For $\beta<\delta$,  $(\rho_\beta^\gamma a_\beta \sigma_\beta^\delta)(|\mathbb{F|)}$ is the number of maps $V(\gamma,\mathbb{F})\to V(\delta,\mathbb{F})$ whose image is isomorphic to $V(\beta,\mathbb{F})$.
+            \end{enumerate}
+        \end{claim}
+        We prove the first part of the claim; the second is similar. Given a subrepresentation $U\subseteq V(\beta,\mathbb{F})$ with $V(\beta,\mathbb{F})/U\cong V(\delta,\mathbb{F})$, we fix an epimorphism $\pi_U:V(\beta,\mathbb{F})\twoheadrightarrow V(\delta,\mathbb{F})$ with kernel $U$. There are $\rho_\beta^\delta(|\mathbb{F}|)$ choices for this by induction. Similarly, given $W\subseteq V(\gamma,\mathbb{F})$ with $W\cong V(\delta,\mathbb{F})$, we fix a monomorphism $\iota_W:V(\delta,\mathbb{F})\hookrightarrow V(\gamma,\mathbb{F})$ with image $W$.There are $\sigma_\delta^\gamma(|\mathbb{F}|)$ choices here. Then the number of maps $V(\beta,\mathbb{F})\to V(\gamma,\mathbb{F})$ with kernel $U$ and image $W$ is equal to $a_\delta(|\mathbb{F}|)$. Indeed, the bijection is given by sending an automorphism $\theta$ of $V(\delta,\mathbb{F})$ to the composed map 
+        \[\begin{tikzcd}
+            V(\beta,\mathbb{F})\arrow{r}{\pi_U}& V(\delta,\mathbb{F}) \arrow{r}{\theta} & V(\delta,\mathbb{F}) \arrow{r}{\iota_W} &V(\gamma,\mathbb{F}).
+        \end{tikzcd}\]
+        This completes the proof of the claim. Now, define \begin{align*}
+            \tilde{\sigma}_\beta^\gamma (T) &:= \eta_{\beta\gamma}-\sum_{\delta<\beta} \rho_\delta^\beta a_\delta \sigma_\delta^\gamma\\ \tilde{\rho}_\delta^\gamma (T) &:= \eta_{\gamma\delta}-\sum_{\beta<\delta} \rho_\beta^\gamma a_\beta \sigma_\beta^\delta.
+        \end{align*}
+        Then by the claim, we have that $\tilde{\sigma}_\beta^\gamma (|\mathbb{F}|)$ is the number of monomorphisms $V(\beta,\mathbb{F})\hookrightarrow V(\gamma,\mathbb{F})$ and $\tilde{\rho}_\delta^\gamma (|\mathbb{F}|)$ is the number of epimorphisms $V(\gamma,\mathbb{F})\twoheadrightarrow V(\delta,\mathbb{F})$.
+        % end of proof goes here.
+    \end{proof}
 
 
   \section{Relation to Symmetric Functions}
