@@ -1593,6 +1593,62 @@ So the middle column is exact. A similar calculation gives that the middle row i
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Canonical Bases for Quantized Enveloping Algebras}
+  We have seen the generic Hall-Ringel algebra $\mathcal{H}_t(Q)$ is isomorphic to $\mathcal{U}_+$ (quantized enveloping algebra) for a Dynkin quiver Q. This endows $\mathcal{U}_+$ with a distinguished basis labeled by isomorphism classes of representations of Q. This basis is dependent on the orientation of Q. Our goal is to construct a canonical basis for $\mathcal{U}_+$ which is independent of orientation of Q by using the geometry of the moduli spaces $M_{\underline{d}}(Q)$. 
+
+\section{Sheaves} 
+\begin{definition} 
+Let $X$ be a topological space and write $Op(X)$ for the category of open sets in $X$, with the unique map $V\rightarrow U$ whenever $V\subseteq U\subseteq X$. A \underline{presheaf of abelian groups} is a functor $\mathcal{F}:Op(X)^{op} \rightarrow Ab$.  An element $s \in \mathcal{F}(U)$ is called a section of $\mathcal{F}$ over $U$.
+An inclusion map $\iota : V \xhookrightarrow{} U$ gives a morphism $\mathcal{F}(\iota):\mathcal{F}(U) \rightarrow \mathcal{F}(V)$ sometimes written $\rho_V^U: \mathcal{F}(U) \rightarrow \mathcal{F}(V)$. We abbreviate $s|_V:=\mathcal{F}(\iota)(s)$ and call this \underline{restriction of s to V}. 
+The collection of presheaves over $X$ forms a category PreSh($X$) where given two presheaves $\mathcal{F}\mathcal{G}:Op(X)^{op} \rightarrow Ab$ a morphism $\phi:\mathcal{F} \rightarrow \mathcal{G}$ is a natural transformation. i.e. for each $U\in Op(X)$ we have a morphism $\phi_U:\mathcal{F}(U) \rightarrow \mathcal{G}(U)$ such that for any inclusion $U\subseteq V$ we have a commutative diagram   $$\begin{tikzcd}
+            \mathcal{F}(U) \arrow{r}{\phi_U} \arrow{d}{\rho_V^U}   & \mathcal{G}(U) \arrow{d}{\rho_V^U} \\
+	\mathcal{F}(V) \arrow{r}{\phi_V} &  \mathcal{G}(V)
+            \end{tikzcd}$$
+\end{definition} 
+
+\begin{example} 
+\begin{enumerate}
+\item If $X={*}$ then $PreSh(X) \cong Ab$
+\item Given an abelian group $A$ the constant presheaf $\underline{A}$ on$X$ assigns 0 to $\emptyset$ and $A$ to each nonempty subset $U\subseteq X$ with all restriction maps for $\emptyset \neq V \subseteq U$ are the identity map of $A$.
+\item Given a topological space $X$ and an open set $U\subseteq X$ let $\mathcal{F}(U)$ be the abelian group of continuous functions $f:U\rightarrow \mathbb{C}$. Then for $V\subseteq U$ $f|_V$ is the usual restriction of $f$ to $V$. 
+\item The \underline{zero presheaf} $\underline{0}:Op(X)^{op}\rightarrow Ab$ is the constant presheaf associated to the trivial group 0. This is both the initial and terminal element in PreSh($X$).
+\item Given predheaves $\mathcal{F},\mathcal{G}:Op(X)^{op} \rightarrow Ab$, there is a presheaf $\mathcal{F} \oplus \mathcal{G}:Op(X)^{op} \rightarrow Ab$ given on $U\subseteq X$ by $(\mathcal{F}\oplus \mathcal{G})(U):=\mathcal{F}(U) \oplus \mathcal{G}(U)$.
+\end{enumerate}
+\end{example} 
+
+\begin{definition} 
+Given a map of presheaves $\phi:\mathcal{F}\rightarrow \mathcal{G}$ , $ker\phi$ (resp. $coker\phi$) is the presheaf which assigns the group $ker\phi_U$ (resp. $coker\phi_U$) to an open subset $U\subseteq X$. Indeed, the commutativity of the square below implies there are uniquely defined restriction maps $\rho_V^U:ker\phi_U \rightarrow ker\phi_V$ and $\rho_V^U:coker\phi_U \rightarrow coker\phi_V$.
+$$\begin{tikzcd}
+          ker\phi_U \arrow{r} \arrow[d, dashed]&  \mathcal{F}(U) \arrow{r}{\phi_U} \arrow{d}{\rho_V^U}   & \mathcal{G}(U) \arrow{d}{\rho_V^U} \arrow{r} & coker\phi_U \arrow[d, dashed]\\
+	ker\phi_V  \arrow{r} & \mathcal{F}(V) \arrow{r}{\phi_V} &  \mathcal{G}(V) \arrow{r} & coker\phi_V
+            \end{tikzcd}$$
+
+\end{definition} 
+
+\begin{prop}
+With the structures above PreSh($X$) forms an abelian category.
+\end{prop}
+
+\begin{definition}
+A presheaf $\mathcal{F}:Op(X)^{op} \rightarrow Ab$ is a \underline{sheaf} if the following gluing conditions are satisfied for any collection of open sets $\{U_i \subseteq X\}_{i\in I}$, say with $U=\bigcup_{i \in I}U_i$:
+\begin{enumerate}
+\item Given sections $s_i \in \mathcal{F}(U_i)$ for $i\in I$ such that $s_i|_{U_i \cap U_j} =s_j|_{U_i \cap U_j}$ for all $i,j\in I$, there exists $s\in \mathcal{F}(U)$ such that $s|_{U_i}=s_i$ for all $i\in I$.
+\item Given $s\in \mathcal{F}(U)$ such that $s|_{U_i}=0$ for all $i\in I$ we must have $s=0$. (This gives a uniqueness of gluing.)
+\end{enumerate}
+Write Sh($X$)$\subseteq$PreSh($X$) for the full subcategory of sheaves on $X$. 
+\end{definition}
+
+Given a map of sheaves $\phi: \mathcal{F} \rightarrow \mathcal{G}$, $ker \phi$ is a sheaf.
+$$\begin{tikzcd}
+          ker\phi_U \arrow{r} & s \in  \mathcal{F}(U) \arrow{r}{\phi_U} \arrow{d}{\rho_{U_i}^U}   & \mathcal{G}(U) \arrow{d}{\rho_{U_i}^U}  \\
+	s_i \in ker\phi_{U_i}  \arrow[r, hook] & \mathcal{F}(U_i) \arrow{r}{\phi_{U_i}} &  \mathcal{G}(U_i)  
+            \end{tikzcd}$$
+$\phi_U (s)$ restricts to zero in each $U_i$ and so it is zero, i.e. $s \in ker \phi_U$. However the presheaf cokernel of a map of sheaves will not in general be a sheaf. 
+
+\begin{example}
+Let $X=\mathbb{C}$. Let $\mathcal{F}$ be the sheaf of holomorphic functions $f:X \rightarrow \mathbb{C}$. There is a natural inclusion of $\underline{\mathbb{Z}} \xhookrightarrow{\phi} \mathcal{F}$ as locally constant (integer valued) functions. The cokernel of $\phi$ can be identified with the presheaf of functions on X whose logarithm is holomorphic, i.e. there is an exact sequence $$0 \rightarrow \underline{\mathbb{Z}} \xrightarrow{\phi} \mathcal{F} \rightarrow \mathcal{G} \rightarrow 0$$ with $f \mapsto e^{2\pi i f}$. But computing the logarithm requires choosing a branch cut so gluing can fail. For $U_1=\mathbb{C} \backslash (-\infty,0]$ and $U_2=\mathbb{C} \backslash [0,\infty )$, the inclusion maps $f_1:U_1 \rightarrow \mathbb{C}$ and $f_2:U_2 \rightarrow \mathbb{C}$ have holomorphic logarithms but they do not glue to give a map $f:\mathbb{C} \backslash \{ 0\} \rightarrow \mathbb{C}$ with holomorphic logarithm. 
+\end{example}
+
+This can be fixed by sheafifying $coker\phi$ to get an honest cokernel in Sh($X$), thus Sh($X$) is an abelian category. 
 
   \section{Lusztig Quiver Varieties}
 
