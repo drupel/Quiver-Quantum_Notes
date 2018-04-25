@@ -1650,6 +1650,100 @@ Let $X=\mathbb{C}$. Let $\mathcal{F}$ be the sheaf of holomorphic functions $f:X
 
 This can be fixed by sheafifying $coker\phi$ to get an honest cokernel in Sh($X$), thus Sh($X$) is an abelian category. 
 
+\section{Derived Categories}
+
+\begin{definition}
+Let $\mathcal{A}$ and $\mathcal{B}$ be abelian categories. A functor $F:\mathcal{A} \rightarrow \mathcal{B}$ is \underline{left-exact} if for any exact sequence $0\rightarrow U \rightarrow V \rightarrow W \rightarrow 0$ in $\mathcal{A}$ the sequence $0\rightarrow F(U) \rightarrow F(V) \rightarrow F(W)$ is exact. 
+\end{definition}
+
+\begin{example}
+\begin{enumerate}
+\item $Hom_{\mathcal{A}}(V,-):\mathcal{A}\rightarrow Ab$ is left exact for any $V\in \mathcal{A}$.
+\item For  $\mathcal{A}=Sh(X)$ the \underline{global sections functor} $\Gamma : Sh(X) \rightarrow Ab$ via $\mathcal{F} \mapsto \mathcal{F}(X)$ is left exact. 
+\end{enumerate}
+\end{example}
+
+\begin{definition}
+An abelian category $\mathcal{A}$ \underline{has enough injective objects} if for every $V\in \mathcal{A}$ there exists an injective object $I\in \mathcal{A}$ and a monomorphism $V \xhookrightarrow{} I$. In this case, each object $V\in \mathcal{A}$ admits an \underline{injective resolution}, i.e. an exact sequence $0\rightarrow V \rightarrow I_0 \rightarrow I_1 \rightarrow \cdots$ with $I_k$ injective. 
+\end{definition}
+
+\begin{example}
+\begin{enumerate}
+\item For any ring R, the category of modules over R has enough injectives.
+\item Sh(X) has enough injectives.
+\end{enumerate}
+\end{example}
+
+For an abelian category $\mathcal{A}$ with enough injectives and a left exact functor $F:\mathcal{A} rightarrow \mathcal{B}$ the failure of exactness of $F$ can be corrected as follows:
+
+For $V\in \mathcal{A}$ define the derived functor $R^iF(V)$ to be the $i^th$ cohomology in the sequence $0\rightarrow F(I_0) \rightarrow F(I_1) \rightarrow F(I_2) \rightarrow \cdots$ for any injective resolution $0 \rightarrow V \rightarrow I_0 \rightarrow I_1 \rightarrow \cdots$. ( It does not depend on the choice of injective resolution.) Then for any exact sequence $0 \rightarrow U \rightarrow V \rightarrow W \rightarrow 0$ there exists (by the snake lemma) a long exact sequence $$0\rightarrow R^0F(U) \rightarrow R^0F(V) \rightarrow R^0F(W) \rightarrow R^1F(U)\rightarrow R^1F(V) \rightarrow \cdots$$
+Left exactness of $F$ implies that $R^0F(V)=F(V)$ for all $V\in \mathcal{A}$. So derived functors do correct for the failure of exactness on the right. 
+
+\begin{definition}
+A \underline{chain complex} in $\mathcal{A}$ is a sequence $V_{\bullet} = \cdots \xrightarrow{d} V_{-2}\xrightarrow{d} V_{-1}\xrightarrow{d} V_{0} \xrightarrow{d} V_{1}\xrightarrow{d} V_{2} \xrightarrow{d} \cdots$ such that $d^2=0$.
+Two chain maps $f_{\bullet}, g_{\bullet} : U_{\bullet} \rightarrow V_{\bullet}$ with $f_i:U_i \rightarrow V_i$ such that $fd=df$ are \underline{chain homotopic} if there exists a map $h_{\bullet} : U_{\bullet} \rightarrow V_{\bullet -1}$ so that $f-g = dh+hd$.
+$$\begin{tikzcd}
+         &U_n \arrow{r}{d} \arrow[d ,"f"', shift right=.5ex] \arrow[d ,"g", shift left=.5ex]  \arrow[dl,"h"'] & U_{n+1} \arrow[dl, "h"]  \\
+	V_{n-1} \arrow[r,"d"'] & V_n & 
+            \end{tikzcd}$$ 
+The cohomology of $V_{\bullet}$ is given by $H^n(V_{\bullet})=ker(d:V_n \rightarrow V_{n+1})/im(d: V_{n-1} \rightarrow V_n)$. Chain maps induce maps on cohomology. 
+
+\end{definition}
+
+\begin{prop}
+Chain homotopic maps induce the same map on cohomology. 
+\end{prop}
+
+\begin{definition}
+A chain map $f_{\bullet} : U_{\bullet} \rightarrow V_{\bullet}$ is a \underline{quasi-isomorphism} if the induced map on cohomology is an isomorphism. 
+\end{definition}
+
+\begin{definition}
+the \underline{derived category} $D(\mathcal{A})$ of an abelian category $\mathcal{A}$ has as objects chain complexes of objects in $mathcal{A}$ with $Hom{D(\mathcal{A})}(U_{\bullet}, V_{\bullet})$ obtained as follows:
+\begin{enumerate}
+\item consider chain homotopic maps to be equal.
+\item localize by formally inverting all quasi-isomorphisms.
+\end{enumerate}
+Then morphisms in $D(\mathcal{A}))$ are ``roofs" $\begin{tikzcd}
+         &W_{\bullet} \arrow[dr ,"g_{\bullet}"] \arrow[dl ,"f_{\bullet}"']  &   \\
+	U_{\bullet}  &  & V_{\bullet}
+            \end{tikzcd}$
+where $f_{\bullet}$ is quasi-isomorphism.
+
+Given a chain complex $V_{\bullet}$, define the \underline{shift} $V_{\bullet}[n] =V_{\bullet+n}$ for any $n\in \mathbb{Z}$.
+\end{definition}
+ 
+The origonal abelian category $\mathcal{A}$ can be viewed as a full subcategory of $D(\mathcal{A})$ by considering complexes with cohomology concentrated in degree 0. 
+
+$D(\mathcal{A})$ encodes the structure of extensions in $\mathcal{A}$ :
+$$Ext^k_{\mathcal{A}}(U,V) = Hom_{D(\mathcal{A})}(U,V[k]) \text{    for all     } U,V\in \mathcal{A}$$
+Thus in the setting of $D(\mathcal{A})$ the short exact sequences are replaced by \underline{distinguished triangles} $U_{\bullet}\rightarrow V_{\bullet} \rightarrow W_{\bullet} \rightarrow U_{\bullet}[1]$
+
+More generally, any functor $F:\mathcal{A} \rightarrow \mathcal{B} $ gives rise to a derived functor $D(F): D(\mathcal{A})\rightarrow D(\mathcal{B})$. Then $R^iF(V)=H^i(D(F)(V))$
+
+\begin{definition}
+A \underline{t-structure} on $D(\mathcal{A})$ is a collection of full subcategories $T^{\geq n}$ and $T^{\leq n}$ for all $n\in \mathbb{Z}$ satisfying the following:
+\begin{enumerate}
+\item $T^{\leq n} \subseteq T^{\leq n+1}$ and $T^{\geq n+1} \subseteq T^{\geq n}$ for all $n$ 
+\item $Hom_{D(\mathcal{A})}(T^{\leq n}, T^{\geq m})=0$ for all $n<m$ 
+\item for each $n$ and $X_{\bullet} \in D(\mathcal{A})$ there exists a distinguished triangle $X_{\bullet}^{\leq n} \rightarrow X_{\bullet} \rightarrow X_{\bullet}^{\geq n+1} \rightarrow $ with $X_{\bullet}^{\leq n} \in T^{\leq n}$ and $ X_{\bullet}^{\geq n+1} \in  T^{\geq n+1}$
+\end{enumerate}
+The assignment $X_{\bullet} \mapsto X_{\bullet}^{\leq n} =: \tau^{\leq n}(X)$ and $X_{\bullet} \mapsto X_{\bullet}^{\geq n} =: \tau^{\geq n}(X)$ are functorial. 
+\end{definition}
+
+\begin{example}
+$T^{\leq n}$ (resp. $T^{\geq n}$ being the full subcategory of all $X \in D(\mathcal{A})$ with cohomology concentrated in degree $k\leq n$ (resp. $k\geq n$) is the \underline{standard t-structure}. 
+\end{example}
+
+\begin{definition}
+The \underline{heart} of a t-structure is the category $\mathcal{H}_T :=T^{\geq 0} \cup T^{\leq 0}.$
+\end{definition}
+
+\begin{theorem}
+$D(\mathcal{A})\cong D(\mathcal{H}_T)$. 
+\end{theorem}
+
+
   \section{Lusztig Quiver Varieties}
 
   \section{IC Sheaves}
