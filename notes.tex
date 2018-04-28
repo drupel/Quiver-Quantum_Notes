@@ -1743,6 +1743,79 @@ The \underline{heart} of a t-structure is the category $\mathcal{H}_T :=T^{\geq 
 $D(\mathcal{A})\cong D(\mathcal{H}_T)$. 
 \end{theorem}
 
+Given topological spaces $X$ and $Y$ and a continuous map $f:X\rightarrow Y$, there are several induced functors between categories Sh($X$) and Sh($Y$). 
+
+The simplest is the \underline{direct image functor} $f_*:Sh(X) \rightarrow Sh(Y)$ given by $(f_* \mathcal{F} )(V) = \mathcal{F}(f^{-1}(V))$ for $V\in Op(Y)$.
+Note that $f$ is continous so $f^{-1}(V) \in Op(X)$ for $V\in Op(Y)$, and this assignment respects inclusions. 
+
+\begin{example}
+\begin{enumerate}
+\item For $\pi :X \rightarrow \{ pt \}$ $\pi_*$ is just global sections functor $\Gamma$.
+\item For an abelian group $A$ and $x\in X$, the push forward of the constant sheaf $\underline{A}$ on $\{x\}$ along the inclusion $\iota : \{ x \} \xhookrightarrow{} X$ gives the \underline{skyscraper sheaf},  $ \iota_* (\underline{A})(U) = \left\{
+\begin{array}{ll}
+      A & x\in U \\
+      0 & else \\
+\end{array} 
+\right.$
+\end{enumerate}
+\end{example}
+
+In general, the direct image functor $f_*$ is left exact. Thus there exists derived functors $R^if_* : Sh(X) \rightarrow Sh(Y)$ equivalently $f_*:D(Sh(X)) \rightarrow D(Sh(Y)).$ 
+
+Next we have the \underline{inverse image functor} $f^{-1} : Sh(Y) \rightarrow Sh(X)$.  We would like to define $(f^{-1} \mathcal{G})(U)=\mathcal{G} (f(U))$ but $f(U)$ is not necessarily open. So we try to approximate $f(U)$ by open sets in Y:
+$$ (f^{-1} \mathcal{G} )(U) = \displaystyle{ \lim_{\rightarrow}}_{V \supseteq f(U)} \mathcal{G}(V)$$
+This is only a presheaf so we must sheafify. The stalks of $f^{-1}\mathcal{G}$ are easy to describe: for $x\in X$, $(f^{-1}\mathcal{G})_x = \mathcal{G}_{f(x)}$. Thus the inverse image functor is exact since sequences of sheaves are exact precisely when the sequences of stalks are exact for all $x\in X$.
+
+$$0\rightarrow \mathcal{F} \rightarrow \mathcal{G}\rightarrow \mathcal{H} \rightarrow 0 \text{ is exact if and only if } 0\rightarrow \mathcal{F}_x \rightarrow \mathcal{G}_x\rightarrow \mathcal{H}_x \rightarrow 0 \text{ for all } x\in X$$ 
+
+\begin{prop}
+The direct image and inverse image functors are adjoint:
+$$ Hom_{Sh(X)}(f^{-1}\mathcal{G}, \mathcal{F})=Hom_{Sh(Y)}(\mathcal{G}, f_*\mathcal{F})$$
+\end{prop}
+
+The functor $f_{!} : Sh(X) \to Sh(Y) $ called \underline{direct image with compact support} is defined by $(f_!\mathcal{F})(V)=\{ s \in \mathcal{F}(f^{-1}V) | f:supp(s) \to V \text{ is proper }\}$ where a map $g:X\to Y$ is \underline{proper} if $g^{-1}(K)$ is compact for all compact subsets $K\subseteq Y$. 
+
+\begin{example}
+If $\iota : X \xhookrightarrow{} Y$ is the inclusion of a locally closed subset then $ (\iota_! \mathcal{F})_y = \left\{
+\begin{array}{ll}
+      0 & y \notin X \\
+      \mathcal{F}_y & y\in X \\
+\end{array} 
+\right.$ is the \underline{extension by zero}. 
+\end{example}
+
+If $f:X\rightarrow Y$ is proper, then $f_*=f_!$.
+
+  \section{Lusztig Quiver Varieties}
+
+  \section{IC Sheaves}
+
+  \section{Crystal Bases}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Representation Theory of Quantized Enveloping Algebras}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Applications}
+
+  \section{Integrable Lattice Models}
+
+  \section{Knot Theory}
+
+
+
+\end{document}
+
+
+  \section{Relation to Symmetric Functions}
+
+  \section{Ringel's Theorem}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Canonical Bases for Quantized Enveloping Algebras}
 
   \section{Lusztig Quiver Varieties}
 
